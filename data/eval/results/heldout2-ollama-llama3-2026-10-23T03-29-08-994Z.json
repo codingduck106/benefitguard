@@ -1,0 +1,841 @@
+[
+  {
+    "id": "h2-s01",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "video-id-check",
+    "rules": "insufficient-info",
+    "ms": 19282,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Join a video call on WhatsApp with our fraud team",
+          "quote": "Join a video call on WhatsApp with our fraud team and hold your photo ID up to the camera",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to perform an action that is not a standard practice for official Medi-Cal agencies. WhatsApp is not an official platform for Medi-Cal communication, and sharing a photo ID is not a secure or recommended method for verifying identity. This is not a legitimate request from the California Department of Health Care Services (DHCS) or any other official Medi-Cal agency."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a scam attempt. It is not a legitimate communication from the California Department of Health Care Services (DHCS) or any other official Medi-Cal agency. The message asks the user to perform an action that is not a standard practice for official Medi-Cal agencies, and it may be an attempt to trick the user into sharing sensitive information or performing an action that could compromise their benefits.",
+      "explanationEs": "El mensaje parece ser un intento de estafa. No es una comunicación legítima de la California Department of Health Care Services (DHCS) o cualquier otra agencia oficial de Medi-Cal. El mensaje pide al usuario realizar una acción que no es una práctica estándar para agencias oficiales de Medi-Cal, y puede ser un intento de engañar al usuario para compartir información sensible o realizar una acción que podría comprometer sus beneficios."
+    }
+  },
+  {
+    "id": "h2-s02",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "shipping-fee",
+    "rules": "scam-indicators",
+    "ms": 11246,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Pay the $5.99 shipping charge",
+          "quote": "Pay the $5.99 shipping charge at card-delivery-ca.com so it can be mailed today.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to pay a fee for shipping, which contradicts the official policy that Medi-Cal renewal is free. Additionally, the URL provided is not an official government domain, making it suspicious."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message asks the user to pay a fee for shipping, which contradicts the official policy that Medi-Cal renewal is free. Additionally, the URL provided is not an official government domain, making it suspicious. This is a high-risk message.",
+      "explanationEs": "El mensaje pide al usuario pagar una tarifa por envío, lo que contradice la política oficial de que el renovación de Medi-Cal es gratuita. Además, el URL proporcionado no es un dominio de gobierno oficial, lo que lo hace sospechoso. Este es un mensaje de alto riesgo."
+    }
+  },
+  {
+    "id": "h2-s03",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "bonus-card-digits",
+    "rules": "scam-indicators",
+    "ms": 14977,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive personal information via unsolicited messages is a common scam indicator.",
+          "quote": "enter your EBT card number and the 4 digits on the back",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to provide sensitive information, which is a common scam indicator."
+        },
+        {
+          "askedAction": "The message contains a URL that is not a verified official government domain and may be designed to look like one.",
+          "quote": "https://calfresh-bonus.org",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message contains a URL that is not a verified official government domain and may be designed to look like one."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a scam. It asks the user to provide sensitive information and contains a URL that is not a verified official government domain. This is not consistent with official Medi-Cal renewal processes, which do not charge a fee and do not request sensitive information via unsolicited messages.",
+      "explanationEs": "El mensaje parece ser un fraude. Pide al usuario proporcionar información sensible y contiene una URL que no es un dominio oficial verificado del gobierno. Esto no es consistente con los procesos de renovación de Medi-Cal oficiales, que no cobran una tarifa y no piden información sensible a través de mensajes no solicitados."
+    }
+  },
+  {
+    "id": "h2-s04",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "warrant-threat",
+    "rules": "insufficient-info",
+    "ms": 15373,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Settle the balance with Apple cards today",
+          "quote": "Settle the balance with Apple cards today",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to settle a balance with Apple cards, which is not a legitimate request from the benefits enforcement unit. This is not a standard practice for Medi-Cal renewals or settlements, and it may be an attempt to scam the user. The official statements do not support this request, and it is not a recommended action by the official agencies. Therefore, this is a suspicious finding."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a scam attempt. The benefits enforcement unit would not ask for payment with Apple cards to settle a balance. This is not a legitimate request and may be an attempt to scam the user. The official statements do not support this request, and it is not a recommended action by the official agencies. Therefore, this message is considered high-risk and should be treated with caution.",
+      "explanationEs": "El mensaje parece ser un intento de estafar. La unidad de aplicación de beneficios no pediría pago con tarjetas de Apple para liquidar una deuda. Esta no es una solicitud legítima y puede ser un intento de estafar al usuario. Las declaraciones oficiales no apoyan esta solicitud, y no es una acción recomendada por las agencias oficiales. Por lo tanto, este mensaje se considera de alto riesgo y debe tratarse con precaución."
+    }
+  },
+  {
+    "id": "h2-s05",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "member-id-harvest",
+    "rules": "insufficient-info",
+    "ms": 13021,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Reply with your Medi-Cal ID number and your doctor's name",
+          "quote": "Reply with your Medi-Cal ID number and your doctor's name and we will ship it this week.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to provide personal information (Medi-Cal ID number and doctor's name) to receive a free knee brace, which is not a legitimate request from Medi-Cal or any official agency. This is a common tactic used by scammers to obtain sensitive information."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a phishing attempt, as it asks the user to provide personal information to receive a free knee brace. This is not a legitimate request from Medi-Cal or any official agency. We recommend ignoring this message and not providing any personal information.",
+      "explanationEs": "El mensaje parece ser un intento de phishing, ya que pide al usuario proporcionar información personal para recibir un brace de rodilla gratuito. Esto no es una solicitud legítima de Medi-Cal o cualquier agencia oficial. Recomendamos ignorar este mensaje y no proporcionar información personal alguna."
+    }
+  },
+  {
+    "id": "h2-s06",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "subdomain-lookalike",
+    "rules": "conflicts-found",
+    "ms": 14371,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "medium",
+      "findings": [
+        {
+          "askedAction": "Upload documents again at https://dhcs.ca.gov.renewal-center.co/upload",
+          "quote": "Upload your documents again at https://dhcs.ca.gov.renewal-center.co/upload",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The provided URL is not a verified official government domain and may be designed to look like one. Do not enter personal information on this site."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message asks the user to upload documents again at a suspicious URL. This is not a legitimate request from the California Department of Health Care Services (DHCS). The official website for Medi-Cal information is dhcs.ca.gov, not dhcs.ca.gov.renewal-center.co/upload.",
+      "explanationEs": "El mensaje pide al usuario subir documentos de nuevo en una URL sospechosa. Esta no es una solicitud legítima del Departamento de Salud de California (DHCS). El sitio oficial para información de Medi-Cal es dhcs.ca.gov, no dhcs.ca.gov.renewal-center.co/upload."
+    }
+  },
+  {
+    "id": "h2-s07",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "fake-invoice",
+    "rules": "insufficient-info",
+    "ms": 14275,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Payment is required to finalize your eligibility review.",
+          "quote": "Payment is required to finalize your eligibility review.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks for payment to finalize the eligibility review, which contradicts the official policy that Medi-Cal renewal is free (medi-cal-renewal-no-fee)."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message asks for payment to finalize the eligibility review, which contradicts the official policy that Medi-Cal renewal is free. This is a suspicious request and should be investigated further.",
+      "explanationEs": "El mensaje pide pago para finalizar la revisión de elegibilidad, lo que contradice la política oficial de que el renovación de Medi-Cal es gratuita. Esta es una solicitud sospechosa y debe investigarse más a fondo."
+    }
+  },
+  {
+    "id": "h2-s08",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "passcode",
+    "rules": "scam-indicators",
+    "ms": 15071,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "Text back the passcode we just sent you",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "This message asks the user to provide sensitive information, which contradicts official agency policy (medi-cal-no-pin-request)."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message asks the user to provide sensitive information, which is not a legitimate request from an official agency. This is a high-risk message.",
+      "explanationEs": "El mensaje pide información confidencial, lo que no es una solicitud legítima de una agencia oficial. Esto es un mensaje de alto riesgo."
+    }
+  },
+  {
+    "id": "h2-s09",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "dental-expiry",
+    "rules": "scam-indicators",
+    "ms": 24665,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "give the agent your card number",
+          "quote": "give the agent your card number",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks for sensitive personal information, which is a common scam indicator. Official agencies do not ask for this information via unsolicited messages. This finding contradicts the official policy statements provided, specifically the 'medi-cal-no-pin-request' statement."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "The message is asking for sensitive personal information, which is a common scam indicator. Official agencies do not ask for this information via unsolicited messages. This finding contradicts the official policy statements provided, specifically the 'medi-cal-no-pin-request' statement.",
+      "explanationEs": "El mensaje está pidiendo información personal sensible, lo que es un indicador común de estafas. Las agencias oficiales no piden esta información a través de mensajes no solicitados. Este hallazgo contradice los declaraciones de política oficial proporcionadas, específicamente la 'medi-cal-no-pin-request' declaración."
+    }
+  },
+  {
+    "id": "h2-s10",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "breach-refund",
+    "rules": "scam-indicators",
+    "ms": 40641,
+    "advisorFailed": false,
+    "added": 2,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "Verify your identity by entering your SSN",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message requests sensitive information via text/email, which contradicts official agency policy (medi-cal-no-pin-request). This is a risky action that official agencies do not ask for by text, email, or unsolicited call."
+        },
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "Verify your identity by entering your SSN",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message requests sensitive information via text/email, which contradicts official agency policy (medi-cal-no-pin-request). This is a risky action that official agencies do not ask for by text, email, or unsolicited call."
+        },
+        {
+          "askedAction": "Requesting payment",
+          "quote": "Medi-Cal members affected by a recent data breach can receive $150",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message requests payment, which contradicts official agency policy (medi-cal-renewal-no-fee). This is a risky action that official agencies do not ask for by text, email, or unsolicited call."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message requests sensitive information and payment, which are risky actions that official agencies do not ask for by text, email, or unsolicited call. This is a high-risk message that should be treated with caution.",
+      "explanationEs": "El mensaje solicita información confidencial y pago, lo que son acciones riesgosas que las agencias oficiales no piden por texto, correo electrónico o llamada no solicitada. Este es un mensaje de alto riesgo que debe tratarse con precaución."
+    }
+  },
+  {
+    "id": "h2-s11",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "bank-transfer",
+    "rules": "scam-indicators",
+    "ms": 20282,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "haga un depósito de $60",
+          "quote": "Para evitarlo, haga un depósito de $60 a la cuenta que le enviaremos por mensaje.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to make a payment of $60, which contradicts the official policy that Medi-Cal renewal is free. This is a suspicious request that may be a scam indicator."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message asks the user to make a payment of $60 to avoid cancellation, which contradicts the official policy that Medi-Cal renewal is free. This is a suspicious request that may be a scam indicator.",
+      "explanationEs": "El mensaje pide al usuario hacer un depósito de $60 para evitar la cancelación, lo que contradice la política oficial de que el renovación de Medi-Cal es gratuita. Esta es una solicitud sospechosa que puede ser un indicador de fraude."
+    }
+  },
+  {
+    "id": "h2-s12",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "bonus-card-pin",
+    "rules": "scam-indicators",
+    "ms": 120002,
+    "advisorFailed": true,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators"
+  },
+  {
+    "id": "h2-s13",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "id-photo",
+    "rules": "insufficient-info",
+    "ms": 23485,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Mande una foto de su identificación y de su tarjeta de beneficios por WhatsApp",
+          "quote": "para terminar su renovación",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to share sensitive information (identification and benefits card) and perform an action (send a photo) that is not officially requested by the California Department of Health Care Services (DHCS) or the Centers for Medicare & Medicaid Services (CMS). This is a risky action that could compromise the user's personal information and is not consistent with official Medi-Cal renewal processes."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a phishing attempt, as it asks the user to share sensitive information and perform an action that is not officially requested by the California Department of Health Care Services (DHCS) or the Centers for Medicare & Medicaid Services (CMS). This is a high-risk message that should be treated with caution.",
+      "explanationEs": "El mensaje parece ser un intento de phishing, ya que pide al usuario compartir información sensible y realizar una acción que no se solicita oficialmente por parte del Departamento de Salud Pública de California (DHCS) o los Centros para el Control y la Prevención de Enfermedades (CMS). Este es un mensaje de alto riesgo que debe tratarse con precaución."
+    }
+  },
+  {
+    "id": "h2-s14",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "venmo-fee",
+    "rules": "conflicts-found",
+    "ms": 26377,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Pague por Venmo",
+          "quote": "Pague por Venmo a @renovacion-ca hoy mismo.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to pay for a Medi-Cal renewal process, which is not a legitimate request. Official agencies do not charge a fee for Medi-Cal renewal, as stated in the official policy statement with id 'medi-cal-renewal-no-fee'. Additionally, the message requests payment through Venmo, which is a common scam tactic, as reported by the rule engine."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a scam attempt. It asks the user to pay for a Medi-Cal renewal process, which is not a legitimate request. Additionally, the message requests payment through Venmo, which is a common scam tactic. The official policy statement with id 'medi-cal-renewal-no-fee' states that Medi-Cal renewal is free, and the rule engine has reported that requesting payment for benefits processes that are typically free is a common scam tactic.",
+      "explanationEs": "El mensaje parece ser un intento de estafa. Pide al usuario pagar por el proceso de renovación de Medi-Cal, lo que no es una solicitud legítima. Además, el mensaje pide pago a través de Venmo, que es una táctica común de estafa. El estado oficial con id 'medi-cal-renewal-no-fee' establece que la renovación de Medi-Cal es gratuita, y el motor de reglas ha informado que solicitar pago por procesos de beneficios que típicamente son gratuitos es una táctica común de estafa."
+    }
+  },
+  {
+    "id": "h2-s15",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "ocr-noise",
+    "rules": "scam-indicators",
+    "ms": 19496,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "pay a fee ($20) for renewal",
+          "quote": "P A G U E $ 20 en pagos-medical-ca.co",
+          "category": "suspicious-link",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-renewal-no-fee",
+          "reason": "The message asks the user to pay a fee for renewal, which contradicts the official policy that Medi-Cal renewal is free. Additionally, the URL provided is not a verified official government domain and may be designed to look like one. Do not enter personal information on this site."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "The message is asking the user to pay a fee for renewal, which is not a legitimate request. Additionally, the URL provided is suspicious and may be designed to look like an official government domain. Do not enter personal information on this site.",
+      "explanationEs": "El mensaje está pidiendo que el usuario pague una tarifa por renovación, lo que no es una solicitud legítima. Además, la URL proporcionada es sospechosa y puede estar diseñada para parecer como un dominio oficial del gobierno. No ingrese información personal en este sitio."
+    }
+  },
+  {
+    "id": "h2-s16",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "mixed-language",
+    "rules": "scam-indicators",
+    "ms": 13233,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "necesito el user y password de su banco",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message requests sensitive information, which contradicts official agency policy (medi-cal-no-pin-request)."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message requests sensitive information, which contradicts official agency policy. This is a high-risk request and should be treated with caution.",
+      "explanationEs": "El mensaje solicita información confidencial, lo que contradice la política oficial de la agencia. Esta es una solicitud de alto riesgo y debe tratarse con precaución."
+    }
+  },
+  {
+    "id": "h2-l01",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "portal-message-warning",
+    "rules": "scam-indicators",
+    "ms": 23110,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Log in at BenefitsCal.com to read it",
+          "quote": "Log in at BenefitsCal.com to read it",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to log in to their account, which is a common practice, but it's unusual for an official agency to send a message asking the user to log in to their account. This could be a phishing attempt to trick the user into revealing their login credentials."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notification from BenefitsCal, asking the user to log in to their account. However, the message is unusual in that it asks the user to log in to their account, which is not a typical practice for official agencies. This could be a phishing attempt to trick the user into revealing their login credentials. No other suspicious or risky actions are requested.",
+      "explanationEs": "El mensaje parece ser una notificación legítima de BenefitsCal, que pide al usuario que inicie sesión en su cuenta. Sin embargo, el mensaje es inusual en que pide al usuario que inicie sesión en su cuenta, lo que no es una práctica típica para agencias oficiales. Esto podría ser un intento de phishing para engañar al usuario para revelar sus credenciales de inicio de sesión. No se piden otras acciones sospechosas o riesgosas."
+    }
+  },
+  {
+    "id": "h2-l02",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "pharmacy",
+    "rules": "insufficient-info",
+    "ms": 19641,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "pickup at your pharmacy",
+          "quote": "Your prescription is ready for pickup at your pharmacy.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to take an action (pickup at the pharmacy) without providing a clear explanation or official confirmation. This is not a typical behavior for official Medi-Cal notifications, which usually provide more context and details. The message does not mention any official website or contact information, which is unusual for official notifications. This could be a scam attempt to trick the user into taking an action that may compromise their personal or financial information."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a notification about a prescription being ready for pickup, but it lacks official confirmation and context. The user should be cautious and verify the information through official channels before taking any action.",
+      "explanationEs": "El mensaje parece ser una notificación sobre una receta lista para recoger, pero carece de confirmación oficial y contexto. El usuario debe ser cuidadoso y verificar la información a través de canales oficiales antes de tomar cualquier acción."
+    }
+  },
+  {
+    "id": "h2-l03",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "packet-mailing",
+    "rules": "insufficient-info",
+    "ms": 21574,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Fill it out and return it in the prepaid envelope",
+          "quote": "Fill it out and return it in the prepaid envelope",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to take an action that is not explicitly stated in the official policy statements. Official agencies do not ask users to fill out and return renewal packets through prepaid envelopes. This is not a recommended or official method for renewing Medi-Cal coverage."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message claims that the county is mailing a renewal packet, which is consistent with official policy. However, the message asks the user to fill out and return the packet in a prepaid envelope, which is not a recommended or official method for renewing Medi-Cal coverage. This is a suspicious request that may be a scam indicator.",
+      "explanationEs": "El mensaje afirma que el condado está enviando un paquete de renovación, lo que es consistente con la política oficial. Sin embargo, el mensaje pide al usuario que complete y devuelva el paquete en un sobre de pago previo, lo que no es un método recomendado o oficial para renovar la cobertura de Medi-Cal. Esta es una solicitud sospechosa que puede ser un indicador de fraude."
+    }
+  },
+  {
+    "id": "h2-l04",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "payment-received",
+    "rules": "scam-indicators",
+    "ms": 16283,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "payment of $18",
+          "quote": "Your plan payment of $18 was received on March 3.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "This message asks the user to pay a fee for plan payment, which contradicts the official policy that Medi-Cal renewal is free (medi-cal-renewal-no-fee). This is a suspicious request that may be a scam indicator."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "The message asks the user to pay a fee for plan payment, which contradicts the official policy that Medi-Cal renewal is free. This is a suspicious request that may be a scam indicator.",
+      "explanationEs": "El mensaje pide al usuario pagar una tarifa por pago de plan, lo que contradice la política oficial de que el renovación de Medi-Cal es gratuita. Esta es una solicitud sospechosa que puede ser un indicador de fraude."
+    }
+  },
+  {
+    "id": "h2-l05",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "month-end-reminder",
+    "rules": "insufficient-info",
+    "ms": 23435,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "complete your Medi-Cal renewal",
+          "quote": "complete your Medi-Cal renewal",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to take an action, but it does not specify what the action is or what the consequences of not taking the action would be. This is suspicious because official agencies typically provide clear instructions and consequences for not taking action. Additionally, the message does not ask the user to do anything risky, but it is still a suspicious link because it is asking the user to take an action without providing clear instructions or consequences."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message is a reminder to complete the Medi-Cal renewal, but it does not ask the user to do anything risky. The message also provides a legitimate official website (dhcs.ca.gov) for the user to visit for more information. Overall, the message appears to be a legitimate reminder from the California Department of Health Care Services (DHCS).",
+      "explanationEs": "El mensaje es un recordatorio para completar la renovación de Medi-Cal, pero no pide al usuario hacer algo peligroso. El mensaje también proporciona un sitio web oficial legítimo (dhcs.ca.gov) para que el usuario visite para obtener más información. En general, el mensaje parece ser un recordatorio legítimo de la California Department of Health Care Services (DHCS)."
+    }
+  },
+  {
+    "id": "h2-l06",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "card-reissue-set-pin",
+    "rules": "scam-indicators",
+    "ms": 20055,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "Requesting sensitive information via text/email",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to set their PIN, which contradicts official agency policy that DHCS and county social services offices will never ask for sensitive information via text message, email, or phone call."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notice about a reissued EBT card. However, the request to set the PIN via text/email is suspicious and contradicts official agency policy. It is recommended to verify the authenticity of the message by contacting the official agency or county social services office directly.",
+      "explanationEs": "El mensaje parece ser una notificación legítima sobre una tarjeta EBT reemplazada. Sin embargo, la solicitud de establecer la PIN a través de texto/email es sospechosa y contradice la política oficial de la agencia. Se recomienda verificar la autenticidad del mensaje contactando la agencia oficial o la oficina de servicios sociales del condado directamente."
+    }
+  },
+  {
+    "id": "h2-l07",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "portal-message",
+    "rules": "insufficient-info",
+    "ms": 25103,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Inicie sesión en BenefitsCal.com para leerlo.",
+          "quote": "Inicie sesión en BenefitsCal.com para leerlo.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to log in to an official website, but it's not an official request from the government. Official agencies do not ask users to log in through a link that is not an official government website. This could be a phishing attempt to obtain the user's login credentials."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notification from BenefitsCal, but it's asking the user to log in to the website. This is not a typical request from the government, and it's possible that this is a phishing attempt. We recommend that the user logs in to the website directly by typing the URL in their browser, rather than following the link provided in the message.",
+      "explanationEs": "El mensaje parece ser una notificación legítima de BenefitsCal, pero está pidiendo al usuario que inicie sesión en el sitio web. Esto no es una solicitud típica del gobierno, y es posible que esto sea un intento de phishing. Recomendamos que el usuario inicie sesión en el sitio web directamente escribiendo la URL en su navegador, en lugar de seguir el enlace proporcionado en el mensaje."
+    }
+  },
+  {
+    "id": "h2-l08",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "month-end-reminder",
+    "rules": "insufficient-info",
+    "ms": 20793,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Renovar es gratis",
+          "quote": "Renovar es gratis",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message claims that renewal is free, which contradicts the official policy statement 'Medi-Cal does not charge a fee to submit a renewal. Medi-Cal renewal is free.' (medi-cal-renewal-no-fee). This could be an attempt to trick the user into paying a fee for renewal."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a reminder to renew Medi-Cal coverage, but it claims that renewal is free, which is not supported by official policy. This could be a scam attempt.",
+      "explanationEs": "El mensaje parece ser un recordatorio para renovar la cobertura de Medi-Cal, pero afirma que la renovación es gratuita, lo que no se apoya en la política oficial. Esto podría ser un intento de estafar al usuario para que pague una tarifa de renovación."
+    }
+  },
+  {
+    "id": "h2-l09",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "card-reissue-set-pin",
+    "rules": "scam-indicators",
+    "ms": 23809,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Requesting sensitive information via text/email",
+          "quote": "Requesting sensitive information via text/email",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to create a PIN, which contradicts official agency policy that DHCS and county social services offices will never ask for sensitive information via text message, email, or phone call to maintain or renew Medi-Cal coverage. This is a suspicious request that may be a scam indicator."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notification about a new EBT card, but the request to create a PIN via text/email is suspicious and contradicts official agency policy. It is recommended to verify the authenticity of the message and the request before taking any action.",
+      "explanationEs": "El mensaje parece ser una notificación legítima sobre una nueva tarjeta EBT, pero la solicitud de crear un PIN a través de texto/email es sospechosa y contradice la política oficial de la agencia. Se recomienda verificar la autenticidad del mensaje y la solicitud antes de tomar cualquier acción."
+    }
+  },
+  {
+    "id": "h2-l10",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "pharmacy",
+    "rules": "insufficient-info",
+    "ms": 31686,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "No tiene que pagar copago.",
+          "quote": "No tiene que pagar copago.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to do something risky that official agencies do not ask for by text, email, or unsolicited call. The message claims that the user does not have to pay copay, which contradicts the official policy that Medi-Cal does not charge a fee to submit a renewal. This is a suspicious finding because it may be an attempt to trick the user into sharing their personal information or performing an action that could compromise their benefits."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notification about a prescription being ready at the user's pharmacy. However, the message also claims that the user does not have to pay copay, which is suspicious because official agencies do not ask users to pay fees for Medi-Cal renewals. This finding suggests that the message may be trying to trick the user into sharing their personal information or performing an action that could compromise their benefits.",
+      "explanationEs": "El mensaje parece ser una notificación legítima sobre una receta lista en la farmacia del usuario. Sin embargo, el mensaje también afirma que el usuario no tiene que pagar copago, lo que es sospechoso porque las agencias oficiales no piden a los usuarios que paguen fechas para renovaciones de Medi-Cal. Este hallazgo sugiere que el mensaje puede estar tratando de engañar al usuario para compartir información personal o realizar una acción que podría comprometer sus beneficios."
+    }
+  },
+  {
+    "id": "h2-a01",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "plan-app",
+    "rules": "insufficient-info",
+    "ms": 19457,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate notification from a health plan, inviting the user to download their member app. There are no suspicious requests or instructions that would indicate a scam. The message does not ask for sensitive information, payment, or installation of remote-access software. It also does not contain any links that are not official government websites. Overall, the message seems to be a genuine notification from the health plan.",
+      "explanationEs": "El mensaje parece ser una notificación legítima de un plan de salud, invitando al usuario a descargar su aplicación de miembro. No hay solicitudes o instrucciones sospechosas que indiquen un fraude. El mensaje no solicita información sensible, pago ni instalación de software de acceso remoto. También no contiene enlaces que no sean sitios web oficiales del gobierno. En general, el mensaje parece ser una notificación genuina del plan de salud."
+    }
+  },
+  {
+    "id": "h2-a02",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "investigation",
+    "rules": "insufficient-info",
+    "ms": 27352,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "An investigator may contact you for more information.",
+          "quote": "An investigator may contact you for more information.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to provide more information, which is unusual for a Medi-Cal case review. Official agencies typically do not initiate contact by phone or email without prior notification or a specific reason for the inquiry. This could be a scam attempt to gather personal information or gain access to the user's account."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a legitimate Medi-Cal case review notification. However, the request for an investigator to contact the user for more information is unusual and may be a scam attempt. It is recommended to verify the authenticity of the message by contacting the Medi-Cal office directly.",
+      "explanationEs": "El mensaje parece ser una notificación de revisión de caso de Medi-Cal. Sin embargo, la solicitud de que un investigador se ponga en contacto con el usuario para obtener más información es inusual y puede ser un intento de phishing. Se recomienda verificar la autenticidad del mensaje contactando directamente con la oficina de Medi-Cal."
+    }
+  },
+  {
+    "id": "h2-a03",
+    "lang": "es",
+    "label": "ambiguous",
+    "pattern": "community-event",
+    "rules": "insufficient-info",
+    "ms": 36946,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Llame para reservar su lugar.",
+          "quote": "Su plan de salud le invita a un evento comunitario gratuito. Llame para reservar su lugar.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to call to reserve a place, which is not a typical request from official Medi-Cal agencies. Official agencies usually do not ask users to call to reserve a place or to provide personal information over the phone. This could be a scam attempt to gather personal information or to sell something to the user. BenefitGuard recommends being cautious and not providing any personal information or making any payments without verifying the authenticity of the message with the official Medi-Cal agency or website."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be an invitation to a community event, but it asks the user to call to reserve a place, which is not a typical request from official Medi-Cal agencies. This could be a scam attempt to gather personal information or to sell something to the user. BenefitGuard recommends being cautious and not providing any personal information or making any payments without verifying the authenticity of the message with the official Medi-Cal agency or website.",
+      "explanationEs": "El mensaje parece ser una invitación a un evento comunitario, pero pide al usuario que llame para reservar un lugar, lo que no es una solicitud típica de las agencias de Medi-Cal oficiales. Esto podría ser un intento de phishing para recopilar información personal o vender algo al usuario. BenefitGuard recomienda ser cauto y no proporcionar información personal ni realizar pagos sin verificar la autenticidad del mensaje con la agencia de Medi-Cal oficial o sitio web."
+    }
+  },
+  {
+    "id": "h2-a04",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "opt-out",
+    "rules": "insufficient-info",
+    "ms": 28450,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 1,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [
+        {
+          "askedAction": "Text STOP to end messages from your health plan.",
+          "quote": "Text STOP to end messages from your health plan.",
+          "category": "suspicious-link",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks the user to take an action that is not a standard practice for official agencies. Official agencies do not ask users to end messages by texting a specific command. This could be a phishing attempt to gather sensitive information or install malware. The user should not respond to this message and should not share any personal information or take any further action based on this message."
+        }
+      ],
+      "suggestedAssessment": "no-issues",
+      "explanation": "The message appears to be a phishing attempt. It asks the user to take an action that is not a standard practice for official agencies. The user should not respond to this message and should not share any personal information or take any further action based on this message.",
+      "explanationEs": "El mensaje parece ser un intento de phishing. Pide al usuario tomar una acción que no es una práctica estándar para las agencias oficiales. El usuario no debe responder a este mensaje y no debe compartir información personal ni tomar ninguna acción adicional basada en este mensaje."
+    }
+  }
+]

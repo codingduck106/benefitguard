@@ -1,0 +1,728 @@
+[
+  {
+    "id": "h2-s01",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "video-id-check",
+    "rules": "insufficient-info",
+    "ms": 10774,
+    "advisorFailed": false,
+    "added": 2,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Join a WhatsApp video call and show photo ID to the camera",
+          "quote": "Join a video call on WhatsApp with our fraud team and hold your photo ID up to the camera to keep your benefits.",
+          "category": "sensitive-info-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The sender asks you to show your photo ID on an unofficial WhatsApp video call, which could let them steal your identity. The official statements say counties communicate by letter and through official channels such as BenefitsCal.com, not WhatsApp."
+        },
+        {
+          "askedAction": "Act quickly to avoid losing benefits",
+          "quote": "Your Medi-Cal card may have been copied by someone else.",
+          "category": "urgency-threat",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "An alarming claim that your card was copied, combined with a threat to your benefits, is a common pressure tactic used to rush people into sharing identity information."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows strong signs of a possible scam. It warns that your Medi-Cal card was copied and asks you to join a WhatsApp video call and hold your photo ID up to the camera to keep your benefits. Showing your ID to an unknown caller could lead to identity theft. According to official DHCS information, your county sends letters when it needs more information, and you can manage your benefits through your county office, by mail, or at BenefitsCal.com. Do not join the call. If you are worried, contact your county social services office using contact information from an official letter or dhcs.ca.gov.",
+      "explanationEs": "Este mensaje muestra señales fuertes de una posible estafa. Advierte que su tarjeta de Medi-Cal fue copiada y le pide unirse a una videollamada por WhatsApp y mostrar su identificación con foto a la cámara para conservar sus beneficios. Mostrar su identificación a una persona desconocida podría llevar al robo de identidad. Según la información oficial de DHCS, su condado envía cartas cuando necesita más información, y usted puede administrar sus beneficios por medio de la oficina de su condado, por correo o en BenefitsCal.com. No se una a la llamada. Si está preocupado, comuníquese con la oficina de servicios sociales de su condado usando los datos de contacto de una carta oficial o de dhcs.ca.gov."
+    }
+  },
+  {
+    "id": "h2-s02",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "shipping-fee",
+    "rules": "scam-indicators",
+    "ms": 8838,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message asks you to pay a $5.99 shipping charge for a replacement Benefits Identification Card on the website card-delivery-ca.com. That website is not an official government site. The official sites listed are dhcs.ca.gov and BenefitsCal.com. Asking for payment through an unverified website is a common scam pattern. The official statements say Medi-Cal renewal is free, but they do not address fees for replacement cards. BenefitGuard found no further issues beyond the ones already flagged. Do not pay or enter card details on that site. To ask about a replacement card, contact your county social services office using contact details from an official source, or log in to BenefitsCal.com directly.",
+      "explanationEs": "Este mensaje le pide pagar un cargo de envío de $5.99 por una tarjeta de identificación de beneficios de reemplazo en el sitio web card-delivery-ca.com. Ese sitio no es un sitio oficial del gobierno. Los sitios oficiales indicados son dhcs.ca.gov y BenefitsCal.com. Pedir un pago a través de un sitio web no verificado es un patrón común de estafa. Las declaraciones oficiales dicen que la renovación de Medi-Cal es gratuita, pero no mencionan cargos por tarjetas de reemplazo. BenefitGuard no encontró más problemas aparte de los ya señalados. No pague ni ingrese datos de su tarjeta en ese sitio. Para preguntar sobre una tarjeta de reemplazo, comuníquese con la oficina de servicios sociales de su condado usando datos de contacto de una fuente oficial, o entre directamente a BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s03",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "bonus-card-digits",
+    "rules": "scam-indicators",
+    "ms": 11579,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Enter EBT card number plus a 4-digit code on a non-government website",
+          "quote": "enter your EBT card number and the 4 digits on the back",
+          "category": "sensitive-info-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message asks for the EBT card number along with a 4-digit code, which could work like a PIN or security code and let someone take your benefits. The official statements say DHCS and county offices do not ask for an EBT PIN by text, but that statement is about Medi-Cal, so it is not applied as a direct contradiction of this CalFresh message."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows several scam warning signs. It claims a $250 CalFresh bonus was approved, then asks you to type your EBT card number and 4 digits from your card on calfresh-bonus.org. That site does not appear among the official websites in our sources (dhcs.ca.gov and BenefitsCal.com). Giving your card number and a code like this could let someone drain your benefits. Note: this message does not ask you to pay $250. It offers money to you, so the official rule that Medi-Cal renewal is free does not really apply here. Do not enter your card details. Contact your county social services office or use BenefitsCal.com directly to check whether any bonus is real.",
+      "explanationEs": "Este mensaje muestra varias señales de advertencia de estafa. Dice que se aprobó un bono de CalFresh de $250 y luego le pide escribir el número de su tarjeta EBT y 4 dígitos de su tarjeta en calfresh-bonus.org. Ese sitio no aparece entre los sitios web oficiales de nuestras fuentes (dhcs.ca.gov y BenefitsCal.com). Dar el número de su tarjeta y un código así podría permitir que alguien vacíe sus beneficios. Nota: este mensaje no le pide pagar $250. Le ofrece dinero a usted, así que la regla oficial de que la renovación de Medi-Cal es gratuita no aplica realmente aquí. No ingrese los datos de su tarjeta. Comuníquese con la oficina de servicios sociales de su condado o use BenefitsCal.com directamente para verificar si algún bono es real."
+    }
+  },
+  {
+    "id": "h2-s04",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "warrant-threat",
+    "rules": "insufficient-info",
+    "ms": 8741,
+    "advisorFailed": false,
+    "added": 3,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Pay a balance using Apple gift cards today",
+          "quote": "Settle the balance with Apple cards today",
+          "category": "payment-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The caller demands payment with Apple gift cards, a payment method commonly used in scams. None of the provided official statements describe a balance on a Medi-Cal case that is paid with gift cards."
+        },
+        {
+          "askedAction": "Pay immediately to avoid being arrested",
+          "quote": "There is a warrant tied to your Medi-Cal case.",
+          "category": "urgency-threat",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "Threatening arrest over a warrant to force same-day payment is a common pressure tactic in scams. Official guidance says the county sends a letter when it needs more information, and you get time to respond."
+        },
+        {
+          "askedAction": "Treat the caller as an official enforcement authority and comply with payment",
+          "quote": "This is the benefits enforcement unit.",
+          "category": "impersonation",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The caller claims to be an official enforcement unit without naming a real agency, and makes demands that do not match how Medi-Cal communicates."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This voicemail shows strong signs of a scam. It threatens you with arrest and asks you to pay a 'balance' today with Apple gift cards. Gift card payment demands and arrest threats are common scam tactics. Official guidance says your county sends letters when it needs information and gives you time to respond. Do not buy gift cards or share any card numbers. Do not call back any number from this voicemail. If you are worried about your case, contact your county social services office using contact details from an official source, or check your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje de voz muestra fuertes señales de estafa. Lo amenaza con arrestarlo y le pide pagar hoy un 'saldo' con tarjetas de regalo de Apple. Exigir pagos con tarjetas de regalo y amenazar con arresto son tácticas comunes de estafa. La información oficial indica que su condado envía cartas cuando necesita información y le da tiempo para responder. No compre tarjetas de regalo ni comparta números de tarjetas. No devuelva la llamada a ningún número de este mensaje. Si le preocupa su caso, comuníquese con la oficina de servicios sociales de su condado usando datos de contacto de una fuente oficial, o revise su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s05",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "member-id-harvest",
+    "rules": "insufficient-info",
+    "ms": 7711,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "medium",
+      "findings": [
+        {
+          "askedAction": "Reply by text with your Medi-Cal ID number and your doctor's name",
+          "quote": "Reply with your Medi-Cal ID number and your doctor's name and we will ship it this week.",
+          "category": "sensitive-info-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "An unsolicited message offering free medical equipment in exchange for your Medi-Cal ID and doctor's name matches a common medical-equipment scam pattern. Your benefits ID can be misused for fraudulent billing."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message offers a 'free' knee brace and asks you to reply with your Medi-Cal ID number and your doctor's name. Unsolicited offers of free medical equipment that ask for your benefits ID are a common scam pattern, and your ID could be used for fraudulent billing. The official statements available do not specifically address Medi-Cal ID requests, so this is a warning sign, not a confirmed contradiction. Do not reply with your information. If you think you need a knee brace, talk to your own doctor, or check with your county social services office or your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje ofrece una rodillera 'gratis' y le pide que responda con su número de identificación de Medi-Cal y el nombre de su médico. Las ofertas no solicitadas de equipo médico gratuito que piden su identificación de beneficios son un patrón común de estafa, y su identificación podría usarse para facturación fraudulenta. Las declaraciones oficiales disponibles no tratan específicamente las solicitudes del número de Medi-Cal, por lo que esto es una señal de advertencia, no una contradicción confirmada. No responda con su información. Si cree que necesita una rodillera, hable con su propio médico, o consulte con la oficina de servicios sociales de su condado o en su cuenta de BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s06",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "subdomain-lookalike",
+    "rules": "conflicts-found",
+    "ms": 7106,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Re-upload documents before the case closes, under threat of case closure",
+          "quote": "before your case closes",
+          "category": "urgency-threat",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-coverage-continuity",
+          "reason": "The message pressures the user with an imminent case closure. Official policy says the county sends a letter explaining what is needed and gives time to respond before any changes are made."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message asks you to upload your documents at a website that only looks like the official DHCS site. The real address ends in \"renewal-center.co\", not \"dhcs.ca.gov\". BenefitGuard already flagged this link. The message also warns that your case will close, which pushes you to act quickly. According to DHCS, if your county needs more information, it sends you a letter explaining what is needed, and you have time to respond before your coverage changes. The official sites are dhcs.ca.gov and BenefitsCal.com. Do not upload documents or enter personal information through this link. To check your renewal status, log in to BenefitsCal.com directly, or contact your county social services office using contact details from an official source.",
+      "explanationEs": "Este mensaje le pide subir sus documentos en un sitio web que solo se parece al sitio oficial del DHCS. La dirección real termina en \"renewal-center.co\", no en \"dhcs.ca.gov\". BenefitGuard ya marcó este enlace. El mensaje también advierte que su caso se cerrará, lo que lo presiona a actuar rápido. Según el DHCS, si su condado necesita más información, le envía una carta explicando lo que se necesita, y usted tiene tiempo para responder antes de que cambie su cobertura. Los sitios oficiales son dhcs.ca.gov y BenefitsCal.com. No suba documentos ni ingrese información personal a través de este enlace. Para revisar el estado de su renovación, entre directamente a BenefitsCal.com o comuníquese con la oficina de servicios sociales de su condado usando datos de contacto de una fuente oficial."
+    }
+  },
+  {
+    "id": "h2-s07",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "fake-invoice",
+    "rules": "insufficient-info",
+    "ms": 5429,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Pay $89.00 to finalize the Medi-Cal renewal/eligibility review",
+          "quote": "Amount due: USD 89.00. Payment is required to finalize your eligibility review.",
+          "category": "payment-request",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-renewal-no-fee",
+          "reason": "The message demands payment to complete a Medi-Cal renewal. DHCS states that Medi-Cal renewal is free and you should never have to pay to renew."
+        }
+      ],
+      "suggestedAssessment": "conflicts-found",
+      "explanation": "This message asks you to pay $89.00 to finish your Medi-Cal renewal. According to the California Department of Health Care Services, Medi-Cal renewal is free and you should never have to pay to renew your coverage. This is a strong scam warning sign. Do not send any money. You can check your renewal status through your county social services office or your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje le pide pagar $89.00 para completar su renovación de Medi-Cal. Según el Departamento de Servicios de Atención Médica de California, la renovación de Medi-Cal es gratuita y nunca debería tener que pagar para renovar su cobertura. Esta es una fuerte señal de estafa. No envíe dinero. Puede verificar el estado de su renovación a través de la oficina de servicios sociales de su condado o su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s08",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "passcode",
+    "rules": "scam-indicators",
+    "ms": 5544,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [],
+      "suggestedAssessment": "conflicts-found",
+      "explanation": "This message asks you to text back a passcode that was just sent to you. Official policy says DHCS and your county will never ask for passwords by text, email, or phone call to maintain or renew Medi-Cal. Sharing a one-time passcode can let someone else get into your accounts. BenefitGuard's rule engine already flagged this request, and no additional issues were found. Do not reply with the code. If you have questions about your benefits, contact your county social services office directly or check your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje le pide que responda con un código de acceso que le acaban de enviar. La política oficial dice que DHCS y su condado nunca le pedirán contraseñas por mensaje de texto, correo electrónico o llamada telefónica para mantener o renovar Medi-Cal. Compartir un código de un solo uso puede permitir que otra persona entre a sus cuentas. El sistema de reglas de BenefitGuard ya señaló esta solicitud y no se encontraron problemas adicionales. No responda con el código. Si tiene preguntas sobre sus beneficios, comuníquese directamente con la oficina de servicios sociales de su condado o revise su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s09",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "dental-expiry",
+    "rules": "scam-indicators",
+    "ms": 11357,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Call an unverified phone number tonight to avoid losing dental benefits",
+          "quote": "Final notice: your Medi-Cal dental benefits expire tonight. Call 1-833-555-0177",
+          "category": "urgency-threat",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-coverage-continuity",
+          "reason": "DHCS says that if more information is needed, your county will send a letter and give you time to respond before your coverage changes. A same-night cutoff that requires an immediate call to an unverified number conflicts with this."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows strong signs of a scam. It asks you to give your card number to an agent over the phone, which BenefitGuard already flagged. It also pressures you by saying your benefits end tonight. According to DHCS, your county will send you a letter if it needs more information, and you will have time to respond before any changes are made. Do not call the number or share any card details. To check your coverage, use BenefitsCal.com or contact your county social services office using contact details from an official source.",
+      "explanationEs": "Este mensaje muestra señales claras de estafa. Le pide que le dé el número de su tarjeta a un agente por teléfono, algo que BenefitGuard ya había señalado. También lo presiona al decir que sus beneficios terminan esta noche. Según el DHCS, su condado le enviará una carta si necesita más información, y usted tendrá tiempo para responder antes de que se haga cualquier cambio. No llame al número ni comparta datos de ninguna tarjeta. Para revisar su cobertura, use BenefitsCal.com o comuníquese con la oficina de servicios sociales de su condado usando datos de contacto de una fuente oficial."
+    }
+  },
+  {
+    "id": "h2-s10",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "breach-refund",
+    "rules": "scam-indicators",
+    "ms": 9723,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows strong scam warning signs, and BenefitGuard's rule checks have already flagged them. It asks you to enter your Social Security number on a website, breach-refund-ca.org. DHCS says neither it nor your county office will ask for your Social Security number by text, email, or phone call to keep or renew your Medi-Cal. That website is also not one of the official Medi-Cal sites, which are dhcs.ca.gov and BenefitsCal.com. The message offers you $150 rather than asking you to pay it, but a promise of money in exchange for your Social Security number is a common way scammers steal personal information. Do not enter your information on that site. If you are worried about a data breach or your coverage, contact your county social services office or use BenefitsCal.com directly.",
+      "explanationEs": "Este mensaje muestra fuertes señales de estafa, y las revisiones automáticas de BenefitGuard ya las detectaron. Le pide que ingrese su número de Seguro Social en un sitio web, breach-refund-ca.org. DHCS dice que ni el DHCS ni su oficina del condado le pedirán su número de Seguro Social por mensaje de texto, correo electrónico o llamada telefónica para mantener o renovar su Medi-Cal. Ese sitio web tampoco es uno de los sitios oficiales de Medi-Cal, que son dhcs.ca.gov y BenefitsCal.com. El mensaje le ofrece $150 en lugar de pedirle que los pague, pero prometer dinero a cambio de su número de Seguro Social es una forma común en que los estafadores roban información personal. No ingrese sus datos en ese sitio. Si le preocupa una filtración de datos o su cobertura, comuníquese con la oficina de servicios sociales de su condado o use BenefitsCal.com directamente."
+    }
+  },
+  {
+    "id": "h2-s11",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "bank-transfer",
+    "rules": "scam-indicators",
+    "ms": 6835,
+    "advisorFailed": false,
+    "added": 2,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Deposit money into an account the sender will provide by message",
+          "quote": "haga un depósito de $60 a la cuenta que le enviaremos por mensaje",
+          "category": "payment-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The sender asks for a deposit into an unknown account sent by text message, a common scam payment method separate from the fee amount itself."
+        },
+        {
+          "askedAction": "Act immediately to avoid cancellation",
+          "quote": "Su Medi-Cal será cancelado mañana.",
+          "category": "urgency-threat",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-coverage-continuity",
+          "reason": "Official policy says the county will send a letter explaining what is needed and give time to respond before coverage changes, not threaten cancellation the next day."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows strong scam warning signs. It demands a $60 payment, but Medi-Cal renewal is free. It also asks you to deposit money into an account the sender will text you, and threatens cancellation tomorrow. Official policy says your county sends a letter and gives you time to respond before changes. Do not send money. Check your status through BenefitsCal.com or your county social services office.",
+      "explanationEs": "Este mensaje muestra fuertes señales de estafa. Exige un pago de $60, pero la renovación de Medi-Cal es gratuita. También le pide depositar dinero en una cuenta que el remitente le enviará por mensaje y amenaza con cancelar su cobertura mañana. Según la política oficial, su condado le envía una carta y le da tiempo para responder antes de cualquier cambio. No envíe dinero. Verifique su estado en BenefitsCal.com o con la oficina de servicios sociales de su condado."
+    }
+  },
+  {
+    "id": "h2-s12",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "bonus-card-pin",
+    "rules": "scam-indicators",
+    "ms": 6165,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Believe an unsolicited prize claim and act on it to receive money",
+          "quote": "¡Ganó un bono de CalFresh de $300!",
+          "category": "impersonation",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message claims the user 'won' a CalFresh bonus, a prize-style lure that uses the CalFresh program name to get the user to hand over card details."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows strong signs of a scam. It says you won a $300 CalFresh bonus and asks you to type your EBT card number and PIN on a website (bono-calfresh.net) that is not an official government site. According to official DHCS policy, the agency and your county will never ask for your EBT PIN by text, email, or phone. Prize-style messages like this are a common way to steal benefits. Do not enter any information on that site and do not reply. If you have questions about your benefits, contact your county social services office or use BenefitsCal.com directly.",
+      "explanationEs": "Este mensaje muestra señales fuertes de estafa. Dice que usted ganó un bono de CalFresh de $300 y le pide escribir el número de su tarjeta EBT y su PIN en un sitio web (bono-calfresh.net) que no es un sitio oficial del gobierno. Según la política oficial del DHCS, la agencia y su condado nunca le pedirán su PIN de EBT por mensaje de texto, correo electrónico o teléfono. Los mensajes de premios como este son una forma común de robar beneficios. No ingrese ninguna información en ese sitio y no responda. Si tiene preguntas sobre sus beneficios, comuníquese con la oficina de servicios sociales de su condado o use BenefitsCal.com directamente."
+    }
+  },
+  {
+    "id": "h2-s13",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "id-photo",
+    "rules": "insufficient-info",
+    "ms": 8768,
+    "advisorFailed": false,
+    "added": 2,
+    "rejected": 0,
+    "advised": "conflicts-found",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Send a photo of their ID and benefits card via WhatsApp",
+          "quote": "Mande una foto de su identificación y de su tarjeta de beneficios por WhatsApp para terminar su renovación.",
+          "category": "sensitive-info-request",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The sender asks for photos of identity documents and a benefits card through WhatsApp, which is not one of the official renewal channels (county office, mail, or BenefitsCal.com). These images could be used for identity theft or benefits fraud."
+        },
+        {
+          "askedAction": "Trust the sender as the county office and complete renewal through an unofficial channel",
+          "quote": "Le habla la oficina del condado.",
+          "category": "impersonation",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "The message claims to be from the county office but does not name a county, and it directs the renewal to WhatsApp rather than the official channels described by DHCS."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message claims to be from the county office and asks you to send photos of your ID and benefits card by WhatsApp to finish your renewal. According to DHCS, you renew Medi-Cal through your county social services office, by mail, or through your online account at BenefitsCal.com. WhatsApp is not one of those channels. Sending pictures of your ID and benefits card to an unknown sender could lead to identity theft. Do not send the photos. If you have questions about your renewal, contact your county office using contact information from an official letter or from dhcs.ca.gov, or log in at BenefitsCal.com.",
+      "explanationEs": "Este mensaje dice ser de la oficina del condado y le pide enviar fotos de su identificación y de su tarjeta de beneficios por WhatsApp para terminar su renovación. Según DHCS, usted renueva Medi-Cal por medio de la oficina de servicios sociales de su condado, por correo o en su cuenta en línea en BenefitsCal.com. WhatsApp no es uno de esos canales. Enviar fotos de su identificación y de su tarjeta de beneficios a un remitente desconocido podría llevar al robo de identidad. No envíe las fotos. Si tiene preguntas sobre su renovación, comuníquese con la oficina de su condado usando los datos de contacto de una carta oficial o de dhcs.ca.gov, o entre a su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-s14",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "venmo-fee",
+    "rules": "conflicts-found",
+    "ms": 7106,
+    "advisorFailed": false,
+    "added": 2,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Pay a $25 fee to renew Medi-Cal",
+          "quote": "Renovación de Medi-Cal: el costo del trámite es $25.",
+          "category": "payment-request",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-renewal-no-fee",
+          "reason": "The message claims Medi-Cal renewal costs $25, but DHCS states that Medi-Cal renewal is free and you should never have to pay to renew."
+        },
+        {
+          "askedAction": "Send payment immediately to an unknown Venmo account",
+          "quote": "hoy mismo",
+          "category": "urgency-threat",
+          "evidenceStatus": "suspicious",
+          "sourceId": null,
+          "reason": "Pressuring the user to pay 'today' to an unknown party creates false urgency, a common scam tactic."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message asks you to pay $25 by Venmo to renew Medi-Cal, and to do it today. According to the California Department of Health Care Services, Medi-Cal renewal is free and you should never have to pay to renew your coverage. Official renewals are handled through your county social services office, by mail, or through BenefitsCal.com. Do not send money. If you have questions about your renewal, contact your county office directly using contact information from an official source.",
+      "explanationEs": "Este mensaje le pide pagar $25 por Venmo para renovar Medi-Cal, y hacerlo hoy mismo. Según el Departamento de Servicios de Atención Médica de California, la renovación de Medi-Cal es gratuita y nunca debería tener que pagar para renovar su cobertura. Las renovaciones oficiales se hacen a través de la oficina de servicios sociales de su condado, por correo o en BenefitsCal.com. No envíe dinero. Si tiene preguntas sobre su renovación, comuníquese directamente con la oficina de su condado usando información de contacto de una fuente oficial."
+    }
+  },
+  {
+    "id": "h2-s15",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "ocr-noise",
+    "rules": "scam-indicators",
+    "ms": 6948,
+    "advisorFailed": false,
+    "added": 1,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [
+        {
+          "askedAction": "Act immediately because coverage supposedly expires today",
+          "quote": "SU M3DI-CAL V3NCE H0Y",
+          "category": "urgency-threat",
+          "evidenceStatus": "contradicted",
+          "sourceId": "medi-cal-coverage-continuity",
+          "reason": "The message pressures the user by claiming coverage expires today, while official policy says the county sends a letter and gives time to respond before any changes. The obfuscated spelling (M3DI-CAL, H0Y) is also a common trick to evade filters."
+        }
+      ],
+      "suggestedAssessment": "scam-indicators",
+      "explanation": "This message shows several scam warning signs. It asks you to pay $20 on a website that is not an official government site, but Medi-Cal renewal is free. It also claims your coverage ends today to pressure you, while official policy says your county will send you a letter and give you time to respond. The odd spelling with numbers instead of letters is another common scam trick. Do not pay or enter information on that site. To check your coverage, use BenefitsCal.com, dhcs.ca.gov, or contact your county social services office.",
+      "explanationEs": "Este mensaje muestra varias señales de estafa. Le pide pagar $20 en un sitio web que no es oficial del gobierno, pero la renovación de Medi-Cal es gratuita. También dice que su cobertura vence hoy para presionarle, mientras que la política oficial indica que su condado le enviará una carta y le dará tiempo para responder. La ortografía extraña con números en lugar de letras es otro truco común de estafa. No pague ni ingrese información en ese sitio. Para verificar su cobertura, use BenefitsCal.com, dhcs.ca.gov o comuníquese con la oficina de servicios sociales de su condado."
+    }
+  },
+  {
+    "id": "h2-s16",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "mixed-language",
+    "rules": "scam-indicators",
+    "ms": 8121,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "high",
+      "findings": [],
+      "suggestedAssessment": "conflicts-found",
+      "explanation": "This message claims to be from Medi-Cal and asks for your online banking username and password to process your renewal. BenefitGuard already flagged this request. DHCS states that it and your county office will never ask for passwords by text, email, or phone to maintain or renew Medi-Cal. DHCS also says renewal is free and is done through your county office, by mail, or at BenefitsCal.com. Do not share your bank login. If you already did, contact your bank right away. To check your Medi-Cal status, contact your county social services office directly using contact information from an official source.",
+      "explanationEs": "Este mensaje dice ser de Medi-Cal y pide el usuario y la contraseña de su banca en línea para procesar su renovación. BenefitGuard ya marcó esta solicitud. DHCS indica que ni DHCS ni su oficina del condado le pedirán nunca contraseñas por mensaje de texto, correo electrónico o teléfono para mantener o renovar Medi-Cal. DHCS también dice que la renovación es gratuita y se hace a través de su oficina del condado, por correo o en BenefitsCal.com. No comparta los datos de acceso a su banco. Si ya lo hizo, comuníquese con su banco de inmediato. Para verificar su estado de Medi-Cal, comuníquese directamente con su oficina de servicios sociales del condado usando datos de contacto de una fuente oficial."
+    }
+  },
+  {
+    "id": "h2-l01",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "portal-message-warning",
+    "rules": "scam-indicators",
+    "ms": 5919,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message tells you that a new message is waiting in your BenefitsCal account. It points you to BenefitsCal.com, which official statements list as the official portal for managing your benefits online. It does not ask for payment, a PIN, a password, or your Social Security number. It actually says it will never ask for your password by text. The rule engine flagged the word \"password,\" but the message does not ask for one. It only mentions passwords to warn you. We found no scam indicators in the available evidence. To be careful, go to BenefitsCal.com by typing the address into your browser yourself rather than using a link. Never share your password with anyone.",
+      "explanationEs": "Este mensaje le avisa que tiene un mensaje nuevo en su cuenta de BenefitsCal. Le indica que vaya a BenefitsCal.com, que según las declaraciones oficiales es el portal oficial para administrar sus beneficios en línea. No le pide pagos, PIN, contraseña ni su número de Seguro Social. De hecho, dice que nunca le pedirán su contraseña por mensaje de texto. El sistema de reglas marcó la palabra \"contraseña\", pero el mensaje no le pide su contraseña. Solo la menciona para advertirle. No encontramos indicios de estafa en la información disponible. Por precaución, entre a BenefitsCal.com escribiendo usted mismo la dirección en su navegador en lugar de usar un enlace. Nunca comparta su contraseña con nadie."
+    }
+  },
+  {
+    "id": "h2-l02",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "pharmacy",
+    "rules": "insufficient-info",
+    "ms": 4545,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message only says a prescription is ready for pickup at your pharmacy and that no copay is required. It does not ask you to pay anything, share personal information like a PIN, password, or Social Security number, or click a link. Based on the available evidence, no scam indicators were found. If you are unsure, you can contact your pharmacy directly using a phone number you already know.",
+      "explanationEs": "Este mensaje solo dice que una receta está lista para recoger en su farmacia y que no se requiere copago. No le pide pagar nada, compartir información personal como un PIN, contraseña o número de Seguro Social, ni hacer clic en un enlace. Según la evidencia disponible, no se encontraron indicios de estafa. Si tiene dudas, puede comunicarse directamente con su farmacia usando un número de teléfono que ya conozca."
+    }
+  },
+  {
+    "id": "h2-l03",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "packet-mailing",
+    "rules": "insufficient-info",
+    "ms": 5645,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "We did not find any scam warning signs in this message based on the available official information. It does not ask you to pay, share a PIN, Social Security number, or password, or click a link. It says your county is mailing a renewal packet and that renewing is free, which matches official DHCS statements: counties send renewal packets by mail, and Medi-Cal renewal has no fee. This does not prove the message is genuine. If you are unsure, contact your county social services office using contact details from an official source, or check your account at BenefitsCal.com.",
+      "explanationEs": "No encontramos señales de estafa en este mensaje según la información oficial disponible. No le pide pagar ni compartir su PIN, número de Seguro Social o contraseña, ni hacer clic en un enlace. Dice que su condado le enviará por correo un paquete de renovación y que renovar es gratis, lo cual coincide con las declaraciones oficiales del DHCS: los condados envían los paquetes de renovación por correo y la renovación de Medi-Cal no tiene costo. Esto no comprueba que el mensaje sea auténtico. Si tiene dudas, comuníquese con la oficina de servicios sociales de su condado usando datos de contacto de una fuente oficial, o revise su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-l04",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "payment-received",
+    "rules": "scam-indicators",
+    "ms": 5778,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message says that a Covered California plan payment of $18 was received and points you to coveredca.com. It does not ask you to pay anything, share personal information, or click an unofficial link. The automatic check flagged the $18 because Medi-Cal renewal is free. However, this message is a receipt for a Covered California plan payment, not a request for a Medi-Cal renewal fee, so that policy does not clearly apply here. We found no scam indicators in the available evidence. This does not confirm that the message is genuine. If you did not make this payment, log in by typing coveredca.com yourself instead of using a link, or contact Covered California through its official website.",
+      "explanationEs": "Este mensaje dice que se recibió un pago de $18 de su plan de Covered California y le indica visitar coveredca.com. No le pide pagar nada, compartir información personal ni hacer clic en un enlace no oficial. La revisión automática marcó los $18 porque la renovación de Medi-Cal es gratuita. Sin embargo, este mensaje es un recibo de un pago de un plan de Covered California, no una solicitud de un cargo por renovar Medi-Cal, así que esa norma no parece aplicarse aquí. No encontramos señales de estafa en la información disponible. Esto no confirma que el mensaje sea auténtico. Si usted no hizo este pago, entre a su cuenta escribiendo coveredca.com usted mismo en lugar de usar un enlace, o comuníquese con Covered California a través de su sitio web oficial."
+    }
+  },
+  {
+    "id": "h2-l05",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "month-end-reminder",
+    "rules": "insufficient-info",
+    "ms": 5380,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message reminds you to complete your Medi-Cal renewal by the end of the month and suggests calling your county office or visiting dhcs.ca.gov. It does not ask you to pay anything, share personal information such as a PIN or Social Security number, or log in through an unofficial link. dhcs.ca.gov is listed as the official Medi-Cal information website, and renewing through your county office is an official option. No issues were found in the available evidence. To be careful, contact your county office using contact details from official mail or dhcs.ca.gov rather than from the message itself. Remember that Medi-Cal renewal is always free.",
+      "explanationEs": "Este mensaje le recuerda completar su renovación de Medi-Cal antes de fin de mes y sugiere llamar a la oficina de su condado o visitar dhcs.ca.gov. No le pide pagar nada, compartir información personal como un PIN o su número de Seguro Social, ni iniciar sesión mediante un enlace no oficial. dhcs.ca.gov figura como el sitio web oficial de información de Medi-Cal, y renovar a través de la oficina de su condado es una opción oficial. No se encontraron problemas en la evidencia disponible. Por precaución, comuníquese con la oficina de su condado usando los datos de contacto de su correo oficial o de dhcs.ca.gov, y no los del mensaje. Recuerde que la renovación de Medi-Cal siempre es gratuita."
+    }
+  },
+  {
+    "id": "h2-l06",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "card-reissue-set-pin",
+    "rules": "scam-indicators",
+    "ms": 8500,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message says your EBT card was reissued and will arrive by mail. It tells you to call the number printed on the back of the card itself to set your PIN. It does not ask you to send your PIN, Social Security number, password, or any payment to the sender, and it does not include a link. The automatic check flagged the mention of a PIN, but setting a PIN through the number on the physical card you receive is different from giving your PIN to someone who contacts you. No other scam indicators were found in the available evidence. To stay safe, use only the phone number printed on the card when it arrives, not a number given in a text. Never share your PIN, Social Security number, or passwords with anyone who contacts you by text, email, or phone, because official agencies say they will not ask for these that way.",
+      "explanationEs": "Este mensaje dice que su tarjeta EBT fue reemitida y que llegará por correo. Le indica que llame al número impreso en el reverso de la misma tarjeta para establecer su PIN. No le pide que envíe su PIN, número de Seguro Social, contraseña ni ningún pago al remitente, y no incluye ningún enlace. La revisión automática marcó la mención del PIN, pero establecer un PIN llamando al número de la tarjeta física que usted recibe es diferente a darle su PIN a alguien que se comunica con usted. No se encontraron otras señales de estafa en la evidencia disponible. Para protegerse, use solo el número de teléfono impreso en la tarjeta cuando llegue, no un número dado en un mensaje de texto. Nunca comparta su PIN, número de Seguro Social ni contraseñas con nadie que se comunique con usted por mensaje de texto, correo electrónico o teléfono, porque las agencias oficiales dicen que no los piden de esa manera."
+    }
+  },
+  {
+    "id": "h2-l07",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "portal-message",
+    "rules": "insufficient-info",
+    "ms": 4400,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message says you have a new message in your BenefitsCal account and asks you to log in at BenefitsCal.com to read it. BenefitsCal.com is the official portal for managing your benefits online, according to DHCS. The message does not ask for payment, a PIN, your Social Security number, or a password. No issues were found in the available evidence. To be careful, type BenefitsCal.com into your browser yourself instead of tapping a link, and never share your password with anyone.",
+      "explanationEs": "Este mensaje dice que tiene un mensaje nuevo en su cuenta de BenefitsCal y le pide iniciar sesión en BenefitsCal.com para leerlo. Según DHCS, BenefitsCal.com es el portal oficial para administrar sus beneficios en línea. El mensaje no pide pagos, un PIN, su número de Seguro Social ni contraseñas. No se encontraron problemas en la evidencia disponible. Por precaución, escriba BenefitsCal.com usted mismo en su navegador en lugar de tocar un enlace, y nunca comparta su contraseña con nadie."
+    }
+  },
+  {
+    "id": "h2-l08",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "month-end-reminder",
+    "rules": "insufficient-info",
+    "ms": 4395,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message is a short reminder to complete your Medi-Cal renewal before the end of the month, and it says renewal is free. That matches official information: Medi-Cal does not charge a fee to renew. The message does not ask you to pay, share personal information, or click a link. No scam indicators were found in the available evidence. To be careful, you can renew through your county social services office, by mail, or through your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje es un recordatorio breve para completar su renovación de Medi-Cal antes de fin de mes, y dice que renovar es gratis. Eso coincide con la información oficial: Medi-Cal no cobra por renovar. El mensaje no le pide pagar, compartir información personal ni hacer clic en un enlace. No se encontraron señales de estafa en la información disponible. Por precaución, puede renovar a través de la oficina de servicios sociales de su condado, por correo o en su cuenta de BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-l09",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "card-reissue-set-pin",
+    "rules": "scam-indicators",
+    "ms": 8783,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "scam-indicators",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message says a new EBT card will arrive by mail in 7 to 10 days and tells you to call the number on the back of the card to create your PIN. BenefitGuard's automatic check flagged it because it mentions a PIN. However, the message does not ask you to send your PIN, Social Security number, password, or bank details to the sender. It also does not ask for payment or include a link. It points you to the number printed on the card itself. We found no additional warning signs in the available evidence, but we cannot confirm the message is genuine. To be safe, only use the phone number printed on the physical card once it arrives, not a number given in a text. Never share your PIN with anyone who contacts you. If you are unsure, contact your county social services office directly.",
+      "explanationEs": "Este mensaje dice que una nueva tarjeta EBT llegará por correo en 7 a 10 días y le indica llamar al número en la parte de atrás de la tarjeta para crear su PIN. La revisión automática de BenefitGuard lo marcó porque menciona un PIN. Sin embargo, el mensaje no le pide enviar su PIN, número de Seguro Social, contraseña ni datos bancarios a quien lo envió. Tampoco pide un pago ni incluye un enlace. Le indica usar el número impreso en la propia tarjeta. No encontramos otras señales de alerta en la información disponible, pero no podemos confirmar que el mensaje sea auténtico. Para su seguridad, use solo el número de teléfono impreso en la tarjeta física cuando la reciba, no un número que le den por mensaje de texto. Nunca comparta su PIN con nadie que se comunique con usted. Si tiene dudas, comuníquese directamente con la oficina de servicios sociales de su condado."
+    }
+  },
+  {
+    "id": "h2-l10",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "pharmacy",
+    "rules": "insufficient-info",
+    "ms": 3817,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message only says your prescription is ready at your pharmacy and that you do not have to pay a copay. It does not ask you to pay anything, share personal information like a PIN or Social Security number, or click a link. We found no scam indicators in the available evidence. This does not confirm the message is genuine. If you have doubts, contact your pharmacy or county office directly using contact information you already know.",
+      "explanationEs": "Este mensaje solo dice que su receta está lista en su farmacia y que no tiene que pagar copago. No le pide pagar nada, compartir información personal como un PIN o su número de Seguro Social, ni hacer clic en un enlace. No encontramos indicios de estafa en la evidencia disponible. Esto no confirma que el mensaje sea auténtico. Si tiene dudas, comuníquese directamente con su farmacia o con la oficina de su condado usando información de contacto que ya conozca."
+    }
+  },
+  {
+    "id": "h2-a01",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "plan-app",
+    "rules": "insufficient-info",
+    "ms": 5036,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "We did not find scam indicators in this message based on the available evidence. It invites you to download a member app to view a digital ID card, but it does not ask you to pay anything, share a PIN, password, Social Security number, or bank details, or log in through a suspicious link. This does not mean the message is guaranteed to be genuine. To be careful, get any app only from your phone's official app store or from the website listed on your health plan card, and contact your health plan using the phone number on your card if you are unsure.",
+      "explanationEs": "No encontramos señales de estafa en este mensaje según la información disponible. Le invita a descargar una aplicación para miembros para ver una tarjeta de identificación digital, pero no le pide pagar nada, compartir un PIN, contraseña, número de Seguro Social o datos bancarios, ni iniciar sesión mediante un enlace sospechoso. Esto no significa que el mensaje sea auténtico con certeza. Para tener cuidado, descargue cualquier aplicación solo desde la tienda oficial de aplicaciones de su teléfono o desde el sitio web que aparece en la tarjeta de su plan de salud, y comuníquese con su plan de salud usando el número de teléfono de su tarjeta si tiene dudas."
+    }
+  },
+  {
+    "id": "h2-a02",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "investigation",
+    "rules": "insufficient-info",
+    "ms": 4894,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message says your Medi-Cal case is under review and that someone may contact you. It does not ask you to pay anything, share personal information such as a PIN, Social Security number, or password, or click a link, so we found no scam indicators in the available evidence. Still, be careful if anyone contacts you later. Medi-Cal renewal is free, and DHCS and your county will never ask for your EBT PIN, Social Security number, or passwords by text, email, or phone call. If your county needs more information, it will send you a letter. If you are unsure, contact your county social services office directly or check your account at BenefitsCal.com.",
+      "explanationEs": "Este mensaje dice que su caso de Medi-Cal está en revisión y que alguien podría comunicarse con usted. No le pide pagar nada, compartir información personal como un PIN, número de Seguro Social o contraseña, ni hacer clic en un enlace, por lo que no encontramos señales de estafa en la evidencia disponible. Aun así, tenga cuidado si alguien se comunica con usted más adelante. La renovación de Medi-Cal es gratuita, y DHCS y su condado nunca le pedirán su PIN de EBT, número de Seguro Social ni contraseñas por mensaje de texto, correo electrónico o llamada telefónica. Si su condado necesita más información, le enviará una carta. Si tiene dudas, comuníquese directamente con la oficina de servicios sociales de su condado o revise su cuenta en BenefitsCal.com."
+    }
+  },
+  {
+    "id": "h2-a03",
+    "lang": "es",
+    "label": "ambiguous",
+    "pattern": "community-event",
+    "rules": "insufficient-info",
+    "ms": 3843,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message invites you to a free community event from your health plan and asks you to call to reserve a spot. It does not ask you to pay anything or share personal information such as a PIN, Social Security number, password, or bank details. No scam indicators were found in the available evidence. If you call, use a phone number you already know belongs to your health plan (for example, from your member card), and never share sensitive information like your PIN or Social Security number by phone.",
+      "explanationEs": "Este mensaje le invita a un evento comunitario gratuito de su plan de salud y le pide que llame para reservar su lugar. No le pide pagar nada ni compartir información personal como un PIN, número de Seguro Social, contraseña o datos bancarios. No se encontraron indicios de estafa en la evidencia disponible. Si llama, use un número de teléfono que ya sepa que pertenece a su plan de salud (por ejemplo, el de su tarjeta de miembro), y nunca comparta información confidencial como su PIN o número de Seguro Social por teléfono."
+    }
+  },
+  {
+    "id": "h2-a04",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "opt-out",
+    "rules": "insufficient-info",
+    "ms": 4092,
+    "advisorFailed": false,
+    "added": 0,
+    "rejected": 0,
+    "advised": "insufficient-info",
+    "advisorOutput": {
+      "scamLikelihood": "low",
+      "findings": [],
+      "suggestedAssessment": "no-issues",
+      "explanation": "This message only tells you how to stop receiving texts from your health plan. It does not ask you to pay anything, share personal information like a PIN or Social Security number, or click a link. We found no scam indicators in the available evidence. This does not confirm the message is genuine. If you are unsure, contact your health plan or county office using contact information from an official source, such as dhcs.ca.gov or BenefitsCal.com.",
+      "explanationEs": "Este mensaje solo le indica cómo dejar de recibir mensajes de texto de su plan de salud. No le pide pagar nada, compartir información personal como un PIN o su número de Seguro Social, ni hacer clic en un enlace. No encontramos señales de estafa en la evidencia disponible. Esto no confirma que el mensaje sea auténtico. Si tiene dudas, comuníquese con su plan de salud o con la oficina de su condado usando datos de contacto de una fuente oficial, como dhcs.ca.gov o BenefitsCal.com."
+    }
+  }
+]

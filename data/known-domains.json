@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-15",
+  "approvedDomains": [
+    {
+      "hostname": "dhcs.ca.gov",
+      "agency": "California Department of Health Care Services",
+      "description": "Official Medi-Cal and DHCS information",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "benefitscal.com",
+      "agency": "California Health and Human Services",
+      "description": "Official California benefits portal",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "coveredca.com",
+      "agency": "Covered California",
+      "description": "California health insurance marketplace",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "ca.gov",
+      "agency": "State of California",
+      "description": "California state government portal",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "medicaid.gov",
+      "agency": "Centers for Medicare & Medicaid Services",
+      "description": "Federal Medicaid information",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "cms.gov",
+      "agency": "Centers for Medicare & Medicaid Services",
+      "description": "Federal CMS portal",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "healthcare.gov",
+      "agency": "U.S. Department of Health and Human Services",
+      "description": "Federal health insurance marketplace",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "hhs.gov",
+      "agency": "U.S. Department of Health and Human Services",
+      "description": "Federal health and human services",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "ssa.gov",
+      "agency": "Social Security Administration",
+      "description": "Social Security benefits and services",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    }
+  ],
+  "urlShorteners": [
+    "bit.ly",
+    "tinyurl.com",
+    "t.co",
+    "goo.gl",
+    "ow.ly",
+    "is.gd",
+    "buff.ly",
+    "rebrand.ly",
+    "shorturl.at",
+    "tiny.cc"
+  ]
+}

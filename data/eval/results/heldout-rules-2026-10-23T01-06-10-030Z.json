@@ -1,0 +1,212 @@
+[
+  {
+    "id": "h-s01",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "payment-app",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "h-s02",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "membership-dues",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-s03",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "reactivation",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "h-s04",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "qr-code",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s05",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "otp-code",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s06",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "fake-upgrade",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-s07",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "caseworker-email",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-s08",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "overpayment",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-s09",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "ocr-noise",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s10",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "app-download",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "h-s11",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "payment-app",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s12",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "otp-code",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s13",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "overpayment",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-s14",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "reactivation",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "h-s15",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "mixed-language",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-s16",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "fake-upgrade",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-l01",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "renewal-due-money-words",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l02",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "callback-official",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l03",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "termination-notice",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l04",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "plan-premium",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-l05",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "provider-reminder",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l06",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "document-request",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l07",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "ebt-schedule",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-l08",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "renewal-due-money-words",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l09",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "callback-official",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-l10",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "ebt-schedule",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-a01",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "unknown-sender-survey",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "h-a02",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "managed-care-plan",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "h-a03",
+    "lang": "es",
+    "label": "ambiguous",
+    "pattern": "short-link-no-ask",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "h-a04",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "phone-only",
+    "rules": "insufficient-info"
+  }
+]

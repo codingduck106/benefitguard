@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-15",
+  "sources": [
+    {
+      "id": "medi-cal-renewal-no-fee",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Renewal",
+      "sourceUrl": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/Pages/faqs.aspx",
+      "policyStatement": "Medi-Cal does not charge a fee to submit a renewal. Medi-Cal renewal is free. You should never have to pay to renew your Medi-Cal coverage.",
+      "keywords": ["renewal", "fee", "payment", "cost", "charge", "pay", "price", "$"],
+      "effectiveDate": "2024-01-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "This applies to the Medi-Cal renewal process itself. Other health services may have separate costs such as Share of Cost for some beneficiaries."
+    },
+    {
+      "id": "medi-cal-renewal-process",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Renewal",
+      "sourceUrl": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/",
+      "policyStatement": "You can renew your Medi-Cal coverage through your county social services office, by mail, or through your online account at BenefitsCal.com. Your county will send you a renewal packet before your coverage end date.",
+      "keywords": ["renewal", "renew", "coverage", "county", "packet", "BenefitsCal"],
+      "effectiveDate": "2024-04-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "Renewal processes may vary slightly by county. Contact your local county office for specific procedures."
+    },
+    {
+      "id": "medi-cal-no-pin-request",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Security",
+      "sourceUrl": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/Pages/faqs.aspx",
+      "policyStatement": "DHCS and your county social services office will never ask you to provide your EBT PIN, Social Security number, or passwords via text message, email, or phone call to maintain or renew your Medi-Cal coverage.",
+      "keywords": ["PIN", "password", "Social Security", "SSN", "EBT", "credential", "login"],
+      "effectiveDate": "2024-01-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "You may need to provide your SSN when initially applying for Medi-Cal through official channels. This policy refers to unsolicited requests."
+    },
+    {
+      "id": "medi-cal-official-website",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Official Resources",
+      "sourceUrl": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/",
+      "policyStatement": "The official website for Medi-Cal information is dhcs.ca.gov. The official portal for managing your benefits online is BenefitsCal.com (benefitscal.com).",
+      "keywords": ["website", "portal", "online", "official", "link", "URL"],
+      "effectiveDate": "2024-01-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "County-specific websites also exist and are legitimate. This does not cover all legitimate government domains."
+    },
+    {
+      "id": "medi-cal-coverage-continuity",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Renewal",
+      "sourceUrl": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/Pages/faqs.aspx",
+      "policyStatement": "If you are found eligible, your Medi-Cal coverage will continue. If your county needs more information to determine your eligibility, they will send you a letter explaining what is needed. You will have time to respond before any changes are made to your coverage.",
+      "keywords": ["coverage", "eligible", "eligibility", "terminate", "end", "cancel", "lose", "deadline"],
+      "effectiveDate": "2024-04-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "Specific timelines for responding may vary. Always respond to official county correspondence by the stated deadline."
+    },
+    {
+      "id": "medicaid-chip-renewals-federal",
+      "agency": "Centers for Medicare & Medicaid Services (CMS)",
+      "topic": "Medicaid and CHIP Renewals",
+      "sourceUrl": "https://www.medicaid.gov/medicaid/enrollment/renewal-strategies",
+      "policyStatement": "Medicaid and CHIP renewals are being conducted by states. Beneficiaries should watch for mail from their state Medicaid agency and respond to renewal requests to maintain coverage.",
+      "keywords": ["Medicaid", "CHIP", "renewal", "federal", "coverage", "enrollment"],
+      "effectiveDate": "2024-04-01",
+      "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified",
+      "limitations": "Federal guidance. Specific renewal procedures are determined by each state."
+    }
+  ]
+}

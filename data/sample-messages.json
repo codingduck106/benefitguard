@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "disclaimer": "These are FICTIONAL test messages created for demonstration purposes only. They do not represent actual scam reports or real communications.",
+  "samples": [
+    {
+      "id": "case-a-renewal-fee-scam",
+      "label": "Case A: Renewal fee scam",
+      "labelEs": "Caso A: Estafa de tarifa de renovación",
+      "messageType": "text",
+      "topic": "medi-cal-renewal",
+      "content": "URGENT: You must pay $35 today to complete your Medi-Cal renewal. Pay through this link or your coverage will be terminated: http://medi-cal-payment.example.com/pay",
+      "description": "A synthetic scam message requesting payment for Medi-Cal renewal, which is always free.",
+      "expectedOutcome": "scam-indicators"
+    },
+    {
+      "id": "case-b-sensitive-info",
+      "label": "Case B: Sensitive information request",
+      "labelEs": "Caso B: Solicitud de información confidencial",
+      "messageType": "text",
+      "topic": "medi-cal-renewal",
+      "content": "Reply with your EBT PIN and Social Security number to keep your medical benefits active. This is a required security check from the California benefits department.",
+      "description": "A synthetic message requesting highly sensitive personal information, which is never done via text.",
+      "expectedOutcome": "scam-indicators"
+    },
+    {
+      "id": "case-c-suspicious-url",
+      "label": "Case C: Suspicious URL",
+      "labelEs": "Caso C: URL sospechosa",
+      "messageType": "email",
+      "topic": "medi-cal-renewal",
+      "content": "Dear Medi-Cal member,\n\nIt is time to renew your Medi-Cal coverage. Please complete your renewal at https://medi-cal-renewal.example.com to avoid any interruption in your benefits.\n\nThank you,\nCalifornia Health Services",
+      "description": "A synthetic message with a suspicious, non-official URL for Medi-Cal renewal.",
+      "expectedOutcome": "conflicts-found"
+    },
+    {
+      "id": "case-d-legitimate-style",
+      "label": "Case D: Legitimate-style reminder",
+      "labelEs": "Caso D: Recordatorio legítimo",
+      "messageType": "letter",
+      "topic": "medi-cal-renewal",
+      "content": "Please review your renewal notice and contact your county office if you need help. Your county office can be reached at the phone number on the back of your Benefits Identification Card (BIC).",
+      "description": "A synthetic message that resembles a legitimate communication but whose sender cannot be verified through text analysis alone.",
+      "expectedOutcome": "no-issues"
+    },
+    {
+      "id": "case-e-conflicting-policy",
+      "label": "Case E: Conflicting policy claim",
+      "labelEs": "Caso E: Reclamo de política contradictorio",
+      "messageType": "letter",
+      "topic": "medi-cal-renewal",
+      "content": "Important Notice: California requires a $50 processing fee for every Medi-Cal renewal. Failure to submit this fee will result in automatic cancellation of your coverage. Please send payment to PO Box 12345, Sacramento, CA 95814.",
+      "description": "A synthetic message making a false policy claim about Medi-Cal renewal fees.",
+      "expectedOutcome": "conflicts-found"
+    },
+    {
+      "id": "case-f-insufficient-info",
+      "label": "Case F: Insufficient information",
+      "labelEs": "Caso F: Información insuficiente",
+      "messageType": "text",
+      "topic": "other",
+      "content": "Your benefits need attention. Call us.",
+      "description": "A synthetic vague message that lacks enough detail for verification.",
+      "expectedOutcome": "insufficient-info"
+    }
+  ]
+}

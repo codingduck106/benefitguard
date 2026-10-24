@@ -1,0 +1,240 @@
+[
+  {
+    "id": "s01",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "renewal-fee",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s02",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "gift-card",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s03",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "credential",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s04",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "ssn",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s05",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "shortener",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "s06",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "lookalike",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s07",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "refund-bait",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s08",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "phone-impersonation",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s09",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "crypto",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s10",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "paraphrased-fee",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s11",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "prize",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s12",
+    "lang": "en",
+    "label": "scam",
+    "pattern": "remote-access",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s13",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "renewal-fee",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s14",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "credential",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s15",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "ssn",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s16",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "shortener",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "s17",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "gift-card",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "s18",
+    "lang": "es",
+    "label": "scam",
+    "pattern": "refund-bait",
+    "rules": "scam-indicators"
+  },
+  {
+    "id": "l01",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "renewal-reminder",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l02",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "update-contact",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l03",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "packet-letter",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l04",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "approval",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l05",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "coveredca",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l06",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "deadline-reminder",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l07",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "card-mail",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l08",
+    "lang": "en",
+    "label": "legitimate",
+    "pattern": "dhcs-info",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l09",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "renewal-reminder",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l10",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "update-contact",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l11",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "approval",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "l12",
+    "lang": "es",
+    "label": "legitimate",
+    "pattern": "deadline-reminder",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "a01",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "vague-callback",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "a02",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "unknown-link",
+    "rules": "conflicts-found"
+  },
+  {
+    "id": "a03",
+    "lang": "en",
+    "label": "ambiguous",
+    "pattern": "share-of-cost",
+    "rules": "insufficient-info"
+  },
+  {
+    "id": "a04",
+    "lang": "es",
+    "label": "ambiguous",
+    "pattern": "vague-callback",
+    "rules": "insufficient-info"
+  }
+]

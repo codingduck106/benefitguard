@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Navy / Blue trust palette */
+  --color-navy-50: #f0f4f8;
+  --color-navy-100: #d9e2ec;
+  --color-navy-200: #bcccdc;
+  --color-navy-300: #9fb3c8;
+  --color-navy-400: #829ab1;
+  --color-navy-500: #627d98;
+  --color-navy-600: #486581;
+  --color-navy-700: #334e68;
+  --color-navy-800: #243b53;
+  --color-navy-900: #102a43;
+
+  --color-blue-50: #e6f6ff;
+  --color-blue-100: #bae3ff;
+  --color-blue-200: #7cc4fa;
+  --color-blue-300: #47a3f3;
+  --color-blue-400: #2186eb;
+  --color-blue-500: #0967d2;
+  --color-blue-600: #0552b5;
+  --color-blue-700: #03449e;
+  --color-blue-800: #01337d;
+  --color-blue-900: #002159;
+
+  /* Semantic status colors */
+  --color-danger-50: #fff5f5;
+  --color-danger-100: #fed7d7;
+  --color-danger-500: #e53e3e;
+  --color-danger-600: #c53030;
+  --color-danger-700: #9b2c2c;
+
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #d97706;
+  --color-warning-600: #b45309;
+  --color-warning-700: #92400e;
+
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-500: #16a34a;
+  --color-success-600: #15803d;
+  --color-success-700: #166534;
+
+  --color-info-50: #eff6ff;
+  --color-info-100: #dbeafe;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-navy-900);
+  background-color: #fafbfc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus Styles (Accessibility) ────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 3px solid var(--color-blue-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Skip Link ───────────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 1rem;
+  background: var(--color-blue-600);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+  left: 0;
+  top: 0;
+}
+
+/* ─── Status Badge Backgrounds ────────────────────────────────────────────── */
+
+.status-scam-indicators {
+  background: linear-gradient(135deg, var(--color-danger-50), var(--color-danger-100));
+  border-left: 4px solid var(--color-danger-500);
+}
+
+.status-conflicts-found {
+  background: linear-gradient(135deg, var(--color-warning-50), var(--color-warning-100));
+  border-left: 4px solid var(--color-warning-500);
+}
+
+.status-no-issues {
+  background: linear-gradient(135deg, var(--color-success-50), var(--color-success-100));
+  border-left: 4px solid var(--color-success-500);
+}
+
+.status-insufficient-info {
+  background: linear-gradient(135deg, var(--color-info-50), var(--color-info-100));
+  border-left: 4px solid var(--color-info-500);
+}
+
+/* ─── Transitions ─────────────────────────────────────────────────────────── */
+
+.transition-fade {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-hover {
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 12px rgba(16, 42, 67, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ─── Print Styles ────────────────────────────────────────────────────────── */
+
+@media print {
+  nav, footer, .no-print {
+    display: none !important;
+  }
+}

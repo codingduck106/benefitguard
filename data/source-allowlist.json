@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "description": "Exact pages the grounding layer may read. Nothing outside this list is ever fetched or shown to the LLM. Add a page here to extend coverage.",
+  "pages": [
+    {
+      "id": "dhcs-keep-medi-cal",
+      "url": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Renewal",
+      "enabled": true,
+      "refreshDays": 7
+    },
+    {
+      "id": "dhcs-keep-medi-cal-faqs",
+      "url": "https://www.dhcs.ca.gov/keep-your-Medi-Cal/Pages/faqs.aspx",
+      "agency": "California Department of Health Care Services (DHCS)",
+      "topic": "Medi-Cal Renewal and Security",
+      "enabled": true,
+      "refreshDays": 7
+    },
+    {
+      "id": "medicaid-renewal-strategies",
+      "url": "https://www.medicaid.gov/medicaid/enrollment/renewal-strategies",
+      "agency": "Centers for Medicare & Medicaid Services (CMS)",
+      "topic": "Medicaid and CHIP Renewals",
+      "enabled": true,
+      "refreshDays": 14
+    }
+  ]
+}
