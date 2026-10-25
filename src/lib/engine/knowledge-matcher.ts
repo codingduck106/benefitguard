@@ -16,6 +16,9 @@ interface ClaimMatchResult {
   evidenceStrength: 'strong' | 'moderate' | 'weak' | 'none';
 }
 
+/** Whether an official statement says the process costs nothing. */
+const SAYS_NO_COST = /\bfree\b|does not charge|never have to pay|never cost money|never ask for money/i;
+
 /**
  * Calculate a keyword-matching score between a claim and a source.
  */
@@ -41,9 +44,7 @@ function calculateMatchScore(claim: ExtractedClaim, source: OfficialSource): num
     claimLower.includes('pay') ||
     claimLower.includes('$')
   ) {
-    if (source.policyStatement.toLowerCase().includes('fee') ||
-        source.policyStatement.toLowerCase().includes('free') ||
-        source.policyStatement.toLowerCase().includes('charge')) {
+    if (SAYS_NO_COST.test(source.policyStatement) || /fee|charge/i.test(source.policyStatement)) {
       score += 3;
     }
   }
@@ -79,11 +80,7 @@ function determineEvidenceStatus(
 
   // Payment requests for Medi-Cal renewal
   if (claim.type === 'payment-request') {
-    if (bestSource && (
-      bestSource.policyStatement.toLowerCase().includes('does not charge') ||
-      bestSource.policyStatement.toLowerCase().includes('free') ||
-      bestSource.policyStatement.toLowerCase().includes('never have to pay')
-    )) {
+    if (bestSource && SAYS_NO_COST.test(bestSource.policyStatement)) {
       return {
         status: 'contradicted',
         reason: 'This payment request contradicts the official policy that Medi-Cal renewal is free.',
@@ -99,7 +96,8 @@ function determineEvidenceStatus(
 
   // Sensitive information requests
   if (claim.type === 'sensitive-info-request') {
-    if (bestSource && (
+    // Only a verified statement can contradict a claim.
+    if (bestSource?.verificationStatus === 'verified' && (
       bestSource.policyStatement.toLowerCase().includes('never ask') ||
       bestSource.policyStatement.toLowerCase().includes('will never')
     )) {
@@ -126,10 +124,7 @@ function determineEvidenceStatus(
         claimLower.includes('pay') ||
         claimLower.includes('cost') ||
         claimLower.includes('charge');
-      const sourceIsFree =
-        bestSource.policyStatement.toLowerCase().includes('free') ||
-        bestSource.policyStatement.toLowerCase().includes('does not charge') ||
-        bestSource.policyStatement.toLowerCase().includes('never have to pay');
+      const sourceIsFree = SAYS_NO_COST.test(bestSource.policyStatement);
 
       if (claimMentionsFee && sourceIsFree) {
         return {
@@ -153,7 +148,7 @@ function determineEvidenceStatus(
 
   // Urgency threats
   if (claim.type === 'urgency-threat') {
-    if (bestSource && bestSource.policyStatement.toLowerCase().includes('time to respond')) {
+    if (bestSource && /time to respond|within 90 days|still have Medi-Cal while/i.test(bestSource.policyStatement)) {
       return {
         status: 'suspicious',
         reason: 'While legitimate notices may include deadlines, threats of immediate termination without allowing time to respond conflict with standard procedures.',

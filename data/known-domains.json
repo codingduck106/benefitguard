@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-01-15",
+  "lastUpdated": "2026-10-25",
   "approvedDomains": [
     {
       "hostname": "dhcs.ca.gov",
@@ -72,6 +72,14 @@
       "description": "Social Security benefits and services",
       "allowSubdomains": true,
       "lastVerifiedDate": "2025-01-15",
+      "verificationStatus": "verified"
+    },
+    {
+      "hostname": "keepmedicalcoverage.org",
+      "agency": "California Department of Health Care Services",
+      "description": "Medi-Cal renewal help site that the DHCS FAQ directs members to",
+      "allowSubdomains": true,
+      "lastVerifiedDate": "2026-10-25",
       "verificationStatus": "verified"
     }
   ],

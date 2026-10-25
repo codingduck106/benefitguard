@@ -87,6 +87,9 @@ export default function VerificationResults({
                         <p className="mt-1 text-navy-500">
                           {r.lastVerifiedLabel} {f.officialSource.lastVerifiedDate}
                         </p>
+                        {f.officialSource.verificationStatus !== 'verified' && (
+                          <p className="mt-1 text-warning-700">{r.unverifiedSourceNote}</p>
+                        )}
                       </dd>
                     </div>
                   )}

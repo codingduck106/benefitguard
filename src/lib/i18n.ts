@@ -31,7 +31,7 @@ export const translations = {
       supportedMore: 'More benefits programs coming soon',
       privacyTitle: 'Your privacy',
       privacyText:
-        'Messages you paste are processed only for this check and are not saved, stored, or used for any other purpose in this demo. Remove all personal information before submitting.',
+        'Messages you paste are checked by our rules and sent to an AI service (Anthropic\'s Claude) to help explain the result. BenefitGuard does not save your messages, but the AI provider may keep them for a limited time under its own policies. Remove all personal information before submitting.',
       disclaimerText:
         'BenefitGuard is an independent tool and is not affiliated with, endorsed by, or connected to any government agency. Results are informational and do not constitute an official fraud determination.',
     },
@@ -114,6 +114,7 @@ export const translations = {
       sourceLabel: 'Official source:',
       evidenceLabel: 'Evidence:',
       lastVerifiedLabel: 'Last verified:',
+      unverifiedSourceNote: 'We could not confirm this statement on the official website recently. Treat it as general guidance.',
       strengthLabel: 'Evidence strength:',
       actionLabel: 'Recommended action:',
       urlTitle: 'URL Analysis',
@@ -236,7 +237,7 @@ export const translations = {
       supportedMore: 'Más programas de beneficios próximamente',
       privacyTitle: 'Su privacidad',
       privacyText:
-        'Los mensajes que pegue se procesan solo para esta verificación y no se guardan, almacenan ni se usan para ningún otro propósito en esta demostración. Elimine toda información personal antes de enviar.',
+        'Los mensajes que pegue se revisan con nuestras reglas y se envían a un servicio de IA (Claude, de Anthropic) para ayudar a explicar el resultado. BenefitGuard no guarda sus mensajes, pero el proveedor de IA puede conservarlos por un tiempo limitado según sus propias políticas. Elimine toda información personal antes de enviar.',
       disclaimerText:
         'BenefitGuard es una herramienta independiente y no está afiliada, respaldada ni conectada con ninguna agencia gubernamental. Los resultados son informativos y no constituyen una determinación oficial de fraude.',
     },
@@ -317,6 +318,7 @@ export const translations = {
       sourceLabel: 'Fuente oficial:',
       evidenceLabel: 'Evidencia:',
       lastVerifiedLabel: 'Última verificación:',
+      unverifiedSourceNote: 'No pudimos confirmar esta declaración en el sitio web oficial recientemente. Tómela como orientación general.',
       strengthLabel: 'Fuerza de la evidencia:',
       actionLabel: 'Acción recomendada:',
       urlTitle: 'Análisis de URL',

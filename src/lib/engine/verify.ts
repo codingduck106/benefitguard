@@ -179,6 +179,21 @@ function generateNextSteps(
     });
   }
 
+  // EBT (CalFresh/CalWORKs) is run by CDSS, not Medi-Cal, and has its own PIN-change and reporting steps.
+  const hasEbtIssue = findings.some(
+    (f) => /\bebt\b/i.test(f.claim) || f.officialSource?.url.includes('cdss.ca.gov')
+  );
+  if (hasEbtIssue) {
+    steps.push({
+      action: 'Protect your EBT card',
+      actionEs: 'Proteja su tarjeta EBT',
+      description: 'The state and your county never text or call to ask for your EBT card number or PIN. If you shared them, change your PIN right away by calling the EBT customer service line on the back of your card, and contact your county if benefits are missing. You can report the message to CDSS at CDSSEBT@dss.ca.gov.',
+      descriptionEs: 'El estado y su condado nunca le envían mensajes de texto ni le llaman para pedirle el número de su tarjeta EBT o su PIN. Si los compartió, cambie su PIN de inmediato llamando a la línea de servicio al cliente de EBT que aparece en la parte de atrás de su tarjeta, y comuníquese con su condado si faltan beneficios. Puede reportar el mensaje a CDSS en CDSSEBT@dss.ca.gov.',
+      url: 'https://www.cdss.ca.gov/ebt-safety',
+      priority: 'high',
+    });
+  }
+
   steps.push({
     action: 'Contact your county office directly',
     actionEs: 'Comuníquese directamente con su oficina del condado',
@@ -192,7 +207,7 @@ function generateNextSteps(
     actionEs: 'Visite el sitio web oficial de Medi-Cal',
     description: 'For official information about your Medi-Cal coverage and renewal, go directly to the DHCS website.',
     descriptionEs: 'Para información oficial sobre su cobertura y renovación de Medi-Cal, vaya directamente al sitio web de DHCS.',
-    url: 'https://www.dhcs.ca.gov/keep-your-Medi-Cal/',
+    url: 'https://www.dhcs.ca.gov/faqs/',
     priority: 'medium',
   });
 
@@ -204,6 +219,18 @@ function generateNextSteps(
     url: 'https://benefitscal.com',
     priority: 'medium',
   });
+
+  // EBT messages get the CDSS reporting step instead.
+  if ((assessment === 'scam-indicators' || assessment === 'conflicts-found') && !hasEbtIssue) {
+    steps.push({
+      action: 'Report it to the Medi-Cal fraud hotline',
+      actionEs: 'Repórtelo a la línea directa de fraude de Medi-Cal',
+      description: 'DHCS asks people to report suspected Medi-Cal fraud, including anyone asking for money to complete a renewal, to the Medi-Cal fraud hotline at (800) 822-6222. The call is free and you can stay anonymous.',
+      descriptionEs: 'DHCS pide reportar cualquier sospecha de fraude de Medi-Cal, incluida cualquier persona que pida dinero para completar una renovación, a la línea directa de fraude de Medi-Cal al (800) 822-6222. La llamada es gratuita y puede permanecer en el anonimato.',
+      url: 'https://www.dhcs.ca.gov/individuals/do-you-suspect-medi-cal-fraud-report-it/',
+      priority: 'medium',
+    });
+  }
 
   if (assessment === 'scam-indicators') {
     steps.push({
