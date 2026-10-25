@@ -66,6 +66,15 @@ function determineEvidenceStatus(
   claim: ExtractedClaim,
   bestSource: OfficialSource | undefined
 ): { status: EvidenceStatus; reason: string; strength: 'strong' | 'moderate' | 'weak' | 'none' } {
+  // A bare dollar amount is worth checking, but is not evidence of a policy conflict.
+  if (claim.weak) {
+    return {
+      status: 'suspicious',
+      reason: 'The message mentions a dollar amount. An amount alone is not a scam sign, since real notices mention premiums and payments. Check what the money is for before paying.',
+      strength: 'weak',
+    };
+  }
+
   const claimLower = claim.text.toLowerCase();
 
   // Payment requests for Medi-Cal renewal

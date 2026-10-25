@@ -26,8 +26,12 @@ const PHONE_REGEX = /(?:\+?1[-.\s]?)?(?:\(?[2-9]\d{2}\)?[-.\s]?)?[2-9]\d{2}[-.\s
 const DATE_REGEX = /(?:\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})|(?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s*\d{2,4})/gi;
 const MONEY_REGEX = /\$\s?\d+(?:\.\d{2})?|\d+\s*(?:dollars?|d[oó]lares|USD)/gi;
 
-// Sentences that warn the user ("Never share your PIN") mention sensitive data without asking for it.
-const WARNING_REGEX = /\b(?:never|nunca|do\s+not|don'?t)\s+(?:\w+\s+){0,2}(?:share|give|send|tell|comparta|d[eé]|env[ií]e|diga)|\bno\s+(?:comparta|d[eé]|env[ií]e|diga)\b/i;
+// Sentences that warn the user ("Never share your PIN", "We will never ask for your password")
+// mention sensitive data without asking for it.
+const WARNING_REGEX = /\b(?:never|nunca|do\s+not|don'?t)\s+(?:\w+\s+){0,2}(?:share|give|send|tell|ask|request|comparta|d[eé]|env[ií]e|diga|pedi\w*|pide|solicit\w*)|\bno\s+(?:comparta|d[eé]|env[ií]e|diga|le\s+pedi\w*|le\s+solicit\w*)\b/i;
+
+// Setting up your own PIN ("call to set your PIN", "crear su PIN") is not a request to disclose it.
+const SET_OWN_PIN_REGEX = /\b(?:set|create|choose|select|change|reset)\s+(?:up\s+)?(?:a\s+|your\s+)?(?:new\s+)?(?:EBT\s+)?PIN\b|\b(?:crear|cree|elegir|elija|cambiar|cambie|establecer|establezca)\s+(?:un\s+|su\s+)?(?:nuevo\s+)?PIN\b/gi;
 
 /** Undo common OCR or obfuscation noise so patterns still match ("y0ur", "r e n e w a l", "$ 35"). */
 function undoOcrNoise(text: string): string {
@@ -103,7 +107,8 @@ export function normalizeInput(rawText: string): NormalizedInput {
   const requestText = normalizedText
     .split(/(?<=[.!?\n])\s+/)
     .filter((sentence) => !WARNING_REGEX.test(sentence))
-    .join(' ');
+    .join(' ')
+    .replace(SET_OWN_PIN_REGEX, ' ');
   const sensitiveInfoTypes: string[] = [];
   for (const { pattern, type } of SENSITIVE_INFO_PATTERNS) {
     if (pattern.test(requestText) && !sensitiveInfoTypes.includes(type)) {

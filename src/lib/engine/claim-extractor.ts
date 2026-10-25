@@ -12,6 +12,18 @@ export interface ExtractedClaim {
   type: ClaimType;
   confidence: number;
   matchedPatterns: string[];
+  /** Keyword-only match (a bare dollar amount): can prompt a review, never a scam verdict on its own. */
+  weak?: boolean;
+}
+
+// Confirmations of a payment already made are not payment demands.
+const RECEIPT_REGEX = /\b(?:was|were|has\s+been|have\s+been)\s+(?:received|posted|processed|applied)\b|\bthank\s+you\s+for\s+your\s+payment\b|\b(?:recibimos|hemos\s+recibido)\s+su\s+pago\b|\bsu\s+pago\b[^.!?]*\b(?:fue|ha\s+sido)\s+(?:recibido|procesado|aplicado)\b/i;
+
+/** The sentence that contains the given position. */
+function sentenceAround(text: string, index: number): string {
+  const start = text.slice(0, index).search(/[^.!?\n]*$/);
+  const end = text.slice(index).search(/[.!?](?:\s|$)|\n/);
+  return text.slice(start, end === -1 ? undefined : index + end);
 }
 
 export type ClaimType =
@@ -128,6 +140,9 @@ export function extractClaims(
     let match: RegExpExecArray | null;
 
     while ((match = regex.exec(normalizedText)) !== null) {
+      if (claimPattern.type === 'payment-request' && RECEIPT_REGEX.test(sentenceAround(normalizedText, match.index))) {
+        continue;
+      }
       const claimText = claimPattern.extractClaim(match, normalizedText);
       const normalizedClaim = claimText.toLowerCase().trim();
 
@@ -180,7 +195,7 @@ export function extractClaims(
     const hasPaymentClaim = claims.some((c) => c.type === 'payment-request');
     // Share of cost and plan premiums are real charges, so an amount alone is not a scam indicator.
     const isKnownCharge = /share\s+of\s+cost|parte\s+del\s+costo|premium|prima\s+mensual/i.test(normalizedText);
-    if (!hasPaymentClaim && !isKnownCharge) {
+    if (!hasPaymentClaim && !isKnownCharge && !RECEIPT_REGEX.test(normalizedText)) {
       const moneyClaim = `Message references monetary amount: ${extractedMoneyAmounts.join(', ')}`;
       claims.push({
         id: `claim-${claimIndex++}`,
@@ -188,6 +203,7 @@ export function extractClaims(
         type: 'payment-request',
         confidence: 0.7,
         matchedPatterns: ['Monetary amount detected'],
+        weak: true,
       });
     }
   }
