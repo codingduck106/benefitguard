@@ -19,6 +19,8 @@ import type {
   Finding,
   UrlAnalysisResult,
   NextStep,
+  MessageContext,
+  AlreadyResponded,
 } from '../types';
 import { normalizeInput, type NormalizedInput } from './normalizer';
 import { extractClaims } from './claim-extractor';
@@ -27,6 +29,58 @@ import { matchClaimsToSources } from './knowledge-matcher';
 
 /** Finding id for "have your SSN ready" style messages. */
 const HAVE_READY_ID = 'have-ready';
+
+/** The context the rules and the AI advisor both use. */
+export function contextOf(request: VerifyRequest): MessageContext {
+  return { channel: request.messageType, program: request.program, alreadyResponded: request.alreadyResponded };
+}
+
+// What to do now, for users who already responded. Shown first, whatever the verdict.
+const RECOVERY_STEPS: Record<Exclude<AlreadyResponded, 'no'>, NextStep> = {
+  paid: {
+    action: 'You paid: contact your bank or payment company now',
+    actionEs: 'Usted pagó: comuníquese ahora con su banco o compañía de pago',
+    description: 'Call your bank, card company, or payment app (such as Zelle, Venmo, or Cash App) right away and ask them to stop or reverse the payment. If you paid with gift cards, contact the gift card company and keep the cards and receipts. Then report it at ReportFraud.ftc.gov.',
+    descriptionEs: 'Llame de inmediato a su banco, compañía de tarjeta o aplicación de pago (como Zelle, Venmo o Cash App) y pida que detengan o reviertan el pago. Si pagó con tarjetas de regalo, comuníquese con la compañía de la tarjeta y guarde las tarjetas y los recibos. Luego repórtelo en ReportFraud.ftc.gov.',
+    url: 'https://reportfraud.ftc.gov',
+    priority: 'high',
+  },
+  'shared-info': {
+    action: 'You shared personal information: act now',
+    actionEs: 'Usted compartió información personal: actúe ahora',
+    description: 'Go to IdentityTheft.gov to report it and get a recovery plan. If you shared your Social Security number, consider a free credit freeze with Equifax, Experian, and TransUnion. If you shared a password, change it. If you shared your EBT card number or PIN, change your PIN by calling the number on the back of your card and tell your county.',
+    descriptionEs: 'Vaya a IdentityTheft.gov para reportarlo y obtener un plan de recuperación. Si compartió su número de Seguro Social, considere congelar su crédito gratis con Equifax, Experian y TransUnion. Si compartió una contraseña, cámbiela. Si compartió el número de su tarjeta EBT o su PIN, cambie su PIN llamando al número en la parte de atrás de su tarjeta e informe a su condado.',
+    url: 'https://www.identitytheft.gov',
+    priority: 'high',
+  },
+  clicked: {
+    action: 'You clicked a link or called a number: stop there',
+    actionEs: 'Usted hizo clic en un enlace o llamó a un número: no siga',
+    description: 'Do not enter anything on that website or give anything on the call. If you entered a password, change it now, starting with your BenefitsCal and email accounts. Watch your benefits and bank accounts for changes you did not make.',
+    descriptionEs: 'No escriba nada en ese sitio web ni dé información en la llamada. Si escribió una contraseña, cámbiela ahora, empezando por sus cuentas de BenefitsCal y de correo electrónico. Revise sus cuentas de beneficios y de banco para ver cambios que usted no hizo.',
+    priority: 'high',
+  },
+  unsure: {
+    action: 'Not sure if you responded? Check your accounts',
+    actionEs: '¿No está seguro si respondió? Revise sus cuentas',
+    description: 'Check your bank, payment apps, and BenefitsCal account for activity you do not recognize. If you find any, or remember paying or sharing information, report it at ReportFraud.ftc.gov and contact your county office.',
+    descriptionEs: 'Revise su banco, sus aplicaciones de pago y su cuenta de BenefitsCal para ver actividad que no reconozca. Si encuentra algo, o recuerda haber pagado o compartido información, repórtelo en ReportFraud.ftc.gov y comuníquese con su oficina del condado.',
+    url: 'https://reportfraud.ftc.gov',
+    priority: 'high',
+  },
+};
+
+/** Sentences with deadlines or pressure tactics, quoted so the user can judge them. */
+function findPressure(normalized: NormalizedInput): string[] {
+  const cues = [...normalized.urgencyPhrases, ...normalized.extractedDates].map((c) => c.toLowerCase());
+  if (cues.length === 0) return [];
+  return normalized.normalizedText
+    .split(/(?<=[.!?\n])\s+/)
+    .map((s) => s.trim())
+    .filter((s) => cues.some((c) => s.toLowerCase().includes(c)))
+    .map((s) => (s.length > 160 ? `${s.slice(0, 157)}...` : s))
+    .slice(0, 3);
+}
 
 // ─── Assessment Generator ────────────────────────────────────────────────────
 
@@ -142,9 +196,28 @@ function generateSummaryDescription(
 function generateNextSteps(
   assessment: OverallAssessment,
   findings: Finding[],
-  urlResults: UrlAnalysisResult[]
+  context: MessageContext
 ): NextStep[] {
   const steps: NextStep[] = [];
+  const flagged = assessment === 'scam-indicators' || assessment === 'conflicts-found';
+  const { program } = context;
+  const isMediCal = !program || program === 'medi-cal' || program === 'other';
+  // Medi-Cal and CalFresh are run by counties and use BenefitsCal; Medicare and health plans are not.
+  const isCountyRun = program !== 'medicare' && program !== 'health-plan';
+
+  if (context.alreadyResponded && context.alreadyResponded !== 'no') {
+    steps.push(RECOVERY_STEPS[context.alreadyResponded]);
+  }
+
+  if (context.channel === 'call') {
+    steps.push({
+      action: 'Do not trust caller ID',
+      actionEs: 'No confíe en el identificador de llamadas',
+      description: 'Scammers can make a call look like it comes from an official number. Hang up and call the number on the back of your Benefits Identification Card (BIC) or your county office yourself.',
+      descriptionEs: 'Los estafadores pueden hacer que una llamada parezca venir de un número oficial. Cuelgue y llame usted mismo al número en la parte de atrás de su Tarjeta de Identificación de Beneficios (BIC) o a su oficina del condado.',
+      priority: 'high',
+    });
+  }
 
   // Shown first: the message prepares the user to give sensitive data on a call.
   if (findings.some((f) => f.id === HAVE_READY_ID)) {
@@ -194,9 +267,9 @@ function generateNextSteps(
   }
 
   // EBT (CalFresh/CalWORKs) is run by CDSS, not Medi-Cal, and has its own PIN-change and reporting steps.
-  const hasEbtIssue = findings.some(
-    (f) => /\bebt\b/i.test(f.claim) || f.officialSource?.url.includes('cdss.ca.gov')
-  );
+  const hasEbtIssue =
+    findings.some((f) => /\bebt\b/i.test(f.claim) || f.officialSource?.url.includes('cdss.ca.gov')) ||
+    (program === 'calfresh-ebt' && flagged);
   if (hasEbtIssue) {
     steps.push({
       action: 'Protect your EBT card',
@@ -208,34 +281,60 @@ function generateNextSteps(
     });
   }
 
-  steps.push({
-    action: 'Contact your county office directly',
-    actionEs: 'Comuníquese directamente con su oficina del condado',
-    description: 'Use the phone number on the back of your Benefits Identification Card (BIC) or visit your county office in person.',
-    descriptionEs: 'Use el número de teléfono en la parte posterior de su Tarjeta de Identificación de Beneficios (BIC) o visite su oficina del condado en persona.',
-    priority: 'high',
-  });
+  if (isCountyRun) {
+    steps.push({
+      action: 'Contact your county office directly',
+      actionEs: 'Comuníquese directamente con su oficina del condado',
+      description: 'Use the phone number on the back of your Benefits Identification Card (BIC) or visit your county office in person.',
+      descriptionEs: 'Use el número de teléfono en la parte posterior de su Tarjeta de Identificación de Beneficios (BIC) o visite su oficina del condado en persona.',
+      priority: 'high',
+    });
+  }
 
-  steps.push({
-    action: 'Visit the official Medi-Cal website',
-    actionEs: 'Visite el sitio web oficial de Medi-Cal',
-    description: 'For official information about your Medi-Cal coverage and renewal, go directly to the DHCS website.',
-    descriptionEs: 'Para información oficial sobre su cobertura y renovación de Medi-Cal, vaya directamente al sitio web de DHCS.',
-    url: 'https://www.dhcs.ca.gov/faqs/',
-    priority: 'medium',
-  });
+  if (program === 'health-plan') {
+    steps.push({
+      action: 'Contact your health plan directly',
+      actionEs: 'Comuníquese directamente con su plan de salud',
+      description: 'Call the member services number on your health plan ID card, or log in to your plan account by typing its address yourself.',
+      descriptionEs: 'Llame al número de servicios para miembros que aparece en la tarjeta de identificación de su plan de salud, o entre a su cuenta del plan escribiendo usted mismo la dirección.',
+      priority: 'high',
+    });
+  }
 
-  steps.push({
-    action: 'Manage your benefits online',
-    actionEs: 'Administre sus beneficios en línea',
-    description: 'Use BenefitsCal.com to check your benefits status and complete renewals online.',
-    descriptionEs: 'Use BenefitsCal.com para verificar el estado de sus beneficios y completar renovaciones en línea.',
-    url: 'https://benefitscal.com',
-    priority: 'medium',
-  });
+  if (program === 'medicare') {
+    steps.push({
+      action: 'Contact Medicare directly',
+      actionEs: 'Comuníquese directamente con Medicare',
+      description: 'Medicare is a federal program, separate from Medi-Cal. Use the phone number on your Medicare card or the paperwork Medicare mailed you, not a number from this message.',
+      descriptionEs: 'Medicare es un programa federal, distinto de Medi-Cal. Use el número de teléfono de su tarjeta de Medicare o de los documentos que Medicare le envió por correo, no un número de este mensaje.',
+      priority: 'high',
+    });
+  }
+
+  if (isMediCal) {
+    steps.push({
+      action: 'Visit the official Medi-Cal website',
+      actionEs: 'Visite el sitio web oficial de Medi-Cal',
+      description: 'For official information about your Medi-Cal coverage and renewal, go directly to the DHCS website.',
+      descriptionEs: 'Para información oficial sobre su cobertura y renovación de Medi-Cal, vaya directamente al sitio web de DHCS.',
+      url: 'https://www.dhcs.ca.gov/faqs/',
+      priority: 'medium',
+    });
+  }
+
+  if (isCountyRun) {
+    steps.push({
+      action: 'Manage your benefits online',
+      actionEs: 'Administre sus beneficios en línea',
+      description: 'Use BenefitsCal.com to check your benefits status and complete renewals online.',
+      descriptionEs: 'Use BenefitsCal.com para verificar el estado de sus beneficios y completar renovaciones en línea.',
+      url: 'https://benefitscal.com',
+      priority: 'medium',
+    });
+  }
 
   // EBT messages get the CDSS reporting step instead.
-  if ((assessment === 'scam-indicators' || assessment === 'conflicts-found') && !hasEbtIssue) {
+  if (flagged && isMediCal && !hasEbtIssue) {
     steps.push({
       action: 'Report it to the Medi-Cal fraud hotline',
       actionEs: 'Repórtelo a la línea directa de fraude de Medi-Cal',
@@ -309,8 +408,20 @@ export function verifyMessage(
   request: VerifyRequest,
   extraFindings: Finding[] = []
 ): VerificationResponse {
+  const context = contextOf(request);
+
   // Step 1: Normalize input
-  const normalized = normalizeInput(request.messageContent);
+  const base = normalizeInput(request.messageContent);
+  // On a call, the caller's number can't be checked against the card, so "have it ready" is a request.
+  const normalized: NormalizedInput =
+    context.channel === 'call' && base.sensitiveInfoReadyTypes.length > 0
+      ? {
+          ...base,
+          sensitiveInfoTypes: [...base.sensitiveInfoTypes, ...base.sensitiveInfoReadyTypes],
+          sensitiveInfoReadyTypes: [],
+          hasSensitiveInfoRequest: true,
+        }
+      : base;
 
   // Collect all URLs (from message text + optional URL field)
   const allUrls = [...normalized.extractedUrls];
@@ -324,7 +435,7 @@ export function verifyMessage(
   const claims = extractClaims(normalized);
 
   // Step 3 & 4: Match claims against knowledge base
-  const findings = matchClaimsToSources(claims);
+  const findings = matchClaimsToSources(claims, context.program);
 
   // Step 5: Analyze URLs
   const urlResults = analyzeUrls(allUrls);
@@ -372,7 +483,7 @@ export function verifyMessage(
   // Step 7: Generate response
   const summaryTitle = generateSummaryTitle(assessment);
   const summaryDescription = generateSummaryDescription(assessment, findings, urlResults);
-  const nextSteps = generateNextSteps(assessment, findings, urlResults);
+  const nextSteps = generateNextSteps(assessment, findings, context);
   const explanation = generateExplanation(assessment, findings, urlResults, normalized);
 
   return {
@@ -386,6 +497,7 @@ export function verifyMessage(
     nextSteps,
     explanationOfResult: explanation.en,
     explanationOfResultEs: explanation.es,
+    pressure: findPressure(normalized),
     analyzedAt: new Date().toISOString(),
     disclaimer:
       'This analysis is informational only. It does not constitute an official fraud determination. BenefitGuard is not affiliated with any government agency. When in doubt, contact the relevant agency directly through independently obtained official contact information.',

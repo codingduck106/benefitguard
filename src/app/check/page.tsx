@@ -4,21 +4,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
 import VerificationResults from '@/components/VerificationResults';
 import type {
+  AlreadyResponded,
   MessageType,
-  Topic,
+  Program,
   SampleMessage,
   VerificationResponse,
 } from '@/lib/types';
 
 const MAX_LENGTH = 5000;
-const MESSAGE_TYPES: MessageType[] = ['text', 'email', 'letter', 'website'];
-const TOPICS: Topic[] = [
-  'medi-cal-enrollment',
-  'medi-cal-renewal',
-  'payment-request',
-  'benefit-card',
-  'other',
-];
+const MESSAGE_TYPES: MessageType[] = ['text', 'email', 'letter', 'website', 'call', 'social-media'];
+const PROGRAMS: Program[] = ['medi-cal', 'health-plan', 'calfresh-ebt', 'medicare', 'other'];
+const RESPONSES: AlreadyResponded[] = ['no', 'clicked', 'shared-info', 'paid', 'unsure'];
 
 const fieldClass =
   'mt-1 block w-full rounded-lg border border-navy-200 bg-white px-3 py-2 text-navy-900';
@@ -29,7 +25,8 @@ export default function CheckPage() {
 
   const [messageContent, setMessageContent] = useState('');
   const [messageType, setMessageType] = useState<MessageType>('text');
-  const [topic, setTopic] = useState<Topic>('medi-cal-renewal');
+  const [program, setProgram] = useState<Program | ''>('');
+  const [alreadyResponded, setAlreadyResponded] = useState<AlreadyResponded | ''>('');
   const [url, setUrl] = useState('');
   const [samples, setSamples] = useState<SampleMessage[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -91,7 +88,7 @@ export default function CheckPage() {
     if (!sample) return;
     setMessageContent(sample.content);
     setMessageType(sample.messageType);
-    setTopic(sample.topic as Topic);
+    setProgram(sample.topic.startsWith('medi-cal') || sample.topic === 'payment-request' ? 'medi-cal' : '');
     setUrl('');
     setError(null);
   }
@@ -124,7 +121,8 @@ export default function CheckPage() {
         body: JSON.stringify({
           messageContent,
           messageType,
-          topic,
+          ...(program && { program }),
+          ...(alreadyResponded && { alreadyResponded }),
           url: url.trim(),
           language: locale,
         }),
@@ -185,42 +183,6 @@ export default function CheckPage() {
                 </div>
               )}
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="type" className="block text-sm font-medium text-navy-700">
-                    {c.typeLabel}
-                  </label>
-                  <select
-                    id="type"
-                    className={fieldClass}
-                    value={messageType}
-                    onChange={(e) => setMessageType(e.target.value as MessageType)}
-                  >
-                    {MESSAGE_TYPES.map((m) => (
-                      <option key={m} value={m}>
-                        {c.types[m]}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="topic" className="block text-sm font-medium text-navy-700">
-                    {c.topicLabel}
-                  </label>
-                  <select
-                    id="topic"
-                    className={fieldClass}
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value as Topic)}
-                  >
-                    {TOPICS.map((t) => (
-                      <option key={t} value={t}>
-                        {c.topics[t]}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
 
               <div
                 onDragOver={(e) => {
@@ -301,6 +263,68 @@ export default function CheckPage() {
                   onChange={(e) => setUrl(e.target.value)}
                 />
               </div>
+
+              <details className="rounded-lg border border-navy-200 bg-white px-4 py-2">
+                <summary className="cursor-pointer py-2 text-sm font-medium text-navy-700">
+                  {c.detailsSummary}
+                </summary>
+                <p className="mt-1 text-xs text-navy-600">{c.detailsHelp}</p>
+                <div className="mt-4 mb-2 grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="type" className="block text-sm font-medium text-navy-700">
+                      {c.typeLabel}
+                    </label>
+                    <select
+                      id="type"
+                      className={fieldClass}
+                      value={messageType}
+                      onChange={(e) => setMessageType(e.target.value as MessageType)}
+                    >
+                      {MESSAGE_TYPES.map((m) => (
+                        <option key={m} value={m}>
+                          {c.types[m]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="program" className="block text-sm font-medium text-navy-700">
+                      {c.programLabel}
+                    </label>
+                    <select
+                      id="program"
+                      className={fieldClass}
+                      value={program}
+                      onChange={(e) => setProgram(e.target.value as Program | '')}
+                    >
+                      <option value="">{c.notSure}</option>
+                      {PROGRAMS.map((p) => (
+                        <option key={p} value={p}>
+                          {c.programs[p]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="responded" className="block text-sm font-medium text-navy-700">
+                      {c.respondedLabel}
+                    </label>
+                    <select
+                      id="responded"
+                      className={fieldClass}
+                      value={alreadyResponded}
+                      onChange={(e) => setAlreadyResponded(e.target.value as AlreadyResponded | '')}
+                    >
+                      <option value="">{c.chooseAnswer}</option>
+                      {RESPONSES.map((a) => (
+                        <option key={a} value={a}>
+                          {c.responses[a]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </details>
 
               {error && (
                 <p id="form-error" role="alert" className="text-sm font-medium text-danger-600">

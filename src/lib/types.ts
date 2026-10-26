@@ -2,8 +2,14 @@ import { z } from 'zod';
 
 // ─── Message Types ───────────────────────────────────────────────────────────
 
-export const MessageTypeEnum = z.enum(['text', 'email', 'letter', 'website']);
+export const MessageTypeEnum = z.enum(['text', 'email', 'letter', 'website', 'call', 'social-media']);
 export type MessageType = z.infer<typeof MessageTypeEnum>;
+
+export const ProgramEnum = z.enum(['medi-cal', 'health-plan', 'calfresh-ebt', 'medicare', 'other']);
+export type Program = z.infer<typeof ProgramEnum>;
+
+export const AlreadyRespondedEnum = z.enum(['no', 'clicked', 'shared-info', 'paid', 'unsure']);
+export type AlreadyResponded = z.infer<typeof AlreadyRespondedEnum>;
 
 export const TopicEnum = z.enum([
   'medi-cal-enrollment',
@@ -22,7 +28,10 @@ export const VerifyRequestSchema = z.object({
     .min(1, 'Message content is required')
     .max(5000, 'Message must be under 5,000 characters'),
   messageType: MessageTypeEnum,
-  topic: TopicEnum,
+  /** Replaced by `program`; still accepted from older clients and the eval files, and ignored. */
+  topic: TopicEnum.optional(),
+  program: ProgramEnum.optional(),
+  alreadyResponded: AlreadyRespondedEnum.optional(),
   url: z
     .string()
     .url('Please enter a valid URL')
@@ -32,6 +41,16 @@ export const VerifyRequestSchema = z.object({
 });
 
 export type VerifyRequest = z.infer<typeof VerifyRequestSchema>;
+
+/**
+ * What the user told us about the message. The rules and the AI advisor get the same object.
+ * It helps interpret the message and pick next steps; it never overrides what the message says.
+ */
+export interface MessageContext {
+  channel: MessageType;
+  program?: Program;
+  alreadyResponded?: AlreadyResponded;
+}
 
 // ─── Evidence Status ─────────────────────────────────────────────────────────
 
@@ -101,6 +120,8 @@ export interface VerificationResponse {
   analyzedAt: string;
   disclaimer: string;
   disclaimerEs: string;
+  /** Sentences from the message with deadlines or pressure tactics, quoted for the user. */
+  pressure: string[];
   /** Present only when the AI advisor ran successfully. */
   aiAdvisor?: {
     provider: 'ollama' | 'claude';

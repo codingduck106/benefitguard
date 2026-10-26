@@ -13,7 +13,7 @@
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { verifyMessage } from '../src/lib/engine/verify';
+import { contextOf, verifyMessage } from '../src/lib/engine/verify';
 import { getAdvisorProvider, runAdvisor } from '../src/lib/ai/advisor';
 import type { MessageType, OverallAssessment, Topic } from '../src/lib/types';
 
@@ -72,7 +72,7 @@ async function main() {
 
     if (provider) {
       const start = Date.now();
-      const advice = await runAdvisor(m.content, base.findings, provider, 120_000);
+      const advice = await runAdvisor(m.content, base.findings, contextOf(request), provider, 120_000);
       row.ms = Date.now() - start;
       row.advisorFailed = !advice;
       row.added = advice?.findings.length ?? 0;

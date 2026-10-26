@@ -115,6 +115,20 @@ export default function VerificationResults({
         </section>
       )}
 
+      {result.pressure.length > 0 && (
+        <section>
+          <h2 className="text-xl font-semibold text-navy-900">{r.pressureTitle}</h2>
+          <p className="mt-2 text-sm text-navy-700">{r.pressureNote}</p>
+          <ul className="mt-3 space-y-2">
+            {result.pressure.map((s) => (
+              <li key={s} className="rounded-lg border border-warning-100 bg-warning-50 p-3 text-sm text-navy-900">
+                “{s}”
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {result.urlAnalysis.length > 0 && (
         <section>
           <h2 className="text-xl font-semibold text-navy-900">{r.urlTitle}</h2>

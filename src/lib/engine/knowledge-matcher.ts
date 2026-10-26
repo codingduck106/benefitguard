@@ -3,7 +3,7 @@
  * Matches extracted claims against the official knowledge base.
  */
 
-import type { OfficialSource, Finding, EvidenceStatus } from '../types';
+import type { OfficialSource, Finding, EvidenceStatus, Program } from '../types';
 import type { ExtractedClaim } from './claim-extractor';
 import { getAllSources } from '../data-access';
 
@@ -190,11 +190,14 @@ function determineEvidenceStatus(
 /**
  * Match a single claim against the knowledge base.
  */
-function matchClaim(claim: ExtractedClaim): ClaimMatchResult {
+// The program the user picked breaks ties toward that program's sources; it never creates a match.
+const PROGRAM_TOPIC: Partial<Record<Program, string>> = { 'medi-cal': 'Medi-Cal', 'calfresh-ebt': 'EBT' };
+
+function matchClaim(claim: ExtractedClaim, program?: Program): ClaimMatchResult {
   const sources = getAllSources();
   const scores = sources.map((source) => ({
     source,
-    score: calculateMatchScore(claim, source),
+    score: programScore(calculateMatchScore(claim, source), source, program),
   }));
 
   // Sort by score descending
@@ -223,12 +226,17 @@ function matchClaim(claim: ExtractedClaim): ClaimMatchResult {
 /**
  * Match all claims against the knowledge base and produce findings.
  */
-export function matchClaimsToSources(claims: ExtractedClaim[]): Finding[] {
+function programScore(score: number, source: OfficialSource, program?: Program): number {
+  const topic = program && PROGRAM_TOPIC[program];
+  return score > 0 && topic && source.topic.includes(topic) ? score + 1 : score;
+}
+
+export function matchClaimsToSources(claims: ExtractedClaim[], program?: Program): Finding[] {
   // Filter out URL-reference claims (handled by URL analyzer)
   const nonUrlClaims = claims.filter((c) => c.type !== 'url-reference');
 
   return nonUrlClaims.map((claim) => {
-    const result = matchClaim(claim);
+    const result = matchClaim(claim, program);
 
     return {
       id: claim.id,

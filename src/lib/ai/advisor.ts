@@ -14,7 +14,7 @@
  * Provider is chosen by LLM_PROVIDER: "ollama" | "claude" | unset (disabled).
  */
 
-import type { Finding, OfficialSource, VerificationResponse } from '../types';
+import type { Finding, MessageContext, OfficialSource, VerificationResponse } from '../types';
 import { getAllSources } from '../data-access';
 import { SYSTEM_PROMPT, buildUserPrompt } from './prompt';
 import type { AdvisorCategory, AdvisorOutput } from './schema';
@@ -130,6 +130,7 @@ export interface AdvisorResult {
 export async function runAdvisor(
   message: string,
   ruleFindings: Finding[],
+  context?: MessageContext,
   provider: AdvisorProvider | null = getAdvisorProvider(),
   timeoutMs = Number(process.env.LLM_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS)
 ): Promise<AdvisorResult | null> {
@@ -138,7 +139,7 @@ export async function runAdvisor(
   try {
     const output = await provider.assess(
       SYSTEM_PROMPT,
-      buildUserPrompt(message, sources, ruleFindings),
+      buildUserPrompt(message, sources, ruleFindings, context),
       AbortSignal.timeout(timeoutMs)
     );
     const findings = toFindings(output, message, ruleFindings, sources);

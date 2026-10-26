@@ -11,7 +11,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { VerifyRequestSchema } from '@/lib/types';
-import { verifyMessage } from '@/lib/engine/verify';
+import { contextOf, verifyMessage } from '@/lib/engine/verify';
 import { runAdvisor } from '@/lib/ai/advisor';
 import { clientIp, envLimit, takeToken } from '@/lib/rate-limit';
 
@@ -63,7 +63,9 @@ export async function POST(request: NextRequest) {
     const aiAllowed =
       takeToken(`ai:${ip}`, envLimit('AI_LIMIT_PER_IP_PER_DAY', 20), DAY).ok &&
       takeToken('ai:all', envLimit('AI_LIMIT_PER_DAY', 500), DAY).ok;
-    const advice = aiAllowed ? await runAdvisor(validatedRequest.messageContent, result.findings) : null;
+    const advice = aiAllowed
+      ? await runAdvisor(validatedRequest.messageContent, result.findings, contextOf(validatedRequest))
+      : null;
     if (advice) {
       result = { ...verifyMessage(validatedRequest, advice.findings), aiAdvisor: advice.info };
     }
