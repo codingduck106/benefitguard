@@ -63,7 +63,7 @@ export default function Home() {
           <h2 className="text-lg font-semibold text-navy-900">{h.supportedTitle}</h2>
           <ul className="mt-3 space-y-2 text-navy-600">
             <li>✓ {h.supportedMediCal}</li>
-            <li className="text-navy-500">{h.supportedMore}</li>
+            <li className="text-navy-600">{h.supportedMore}</li>
           </ul>
         </div>
         <div className="rounded-xl border border-navy-100 bg-white p-6">
@@ -82,7 +82,7 @@ export default function Home() {
         </div>
       </section>
 
-      <p className="max-w-4xl mx-auto px-4 pb-12 text-center text-sm text-navy-500">
+      <p className="max-w-4xl mx-auto px-4 pb-12 text-center text-sm text-navy-600">
         {h.disclaimerText}
       </p>
     </main>

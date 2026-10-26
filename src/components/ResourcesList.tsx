@@ -66,7 +66,7 @@ export default function ResourcesList({
                   {d.hostname}
                 </a>
                 <p className="mt-2 text-sm text-navy-700">{d.agency}</p>
-                <p className="mt-1 text-sm text-navy-500">{d.description}</p>
+                <p className="mt-1 text-sm text-navy-600">{d.description}</p>
               </li>
             ))}
           </ul>
@@ -106,8 +106,9 @@ export default function ResourcesList({
                       </a>
                     </dd>
                   </div>
-                  <div className="text-navy-500">
-                    {r.lastVerifiedLabel} {s.lastVerifiedDate}
+                  <div className="text-navy-600">
+                    <dt className="inline">{r.lastVerifiedLabel}</dt>{' '}
+                    <dd className="inline">{s.lastVerifiedDate}</dd>
                   </div>
                 </dl>
               </li>

@@ -6,18 +6,30 @@
  * - Does not log raw message contents.
  * - Does not store submitted messages.
  * - Escapes no user content in responses (JSON responses are safe by default).
- * - Rate limiting should be added via middleware or Vercel Edge config for production.
+ * - Rate limited per IP; Claude calls have per-IP and global daily budgets (see rate-limit.ts).
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { VerifyRequestSchema } from '@/lib/types';
 import { verifyMessage } from '@/lib/engine/verify';
 import { runAdvisor } from '@/lib/ai/advisor';
+import { clientIp, envLimit, takeToken } from '@/lib/rate-limit';
 
 const MAX_REQUEST_SIZE = 10000; // bytes
+const MINUTE = 60_000;
+const DAY = 24 * 60 * MINUTE;
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = clientIp(request);
+    const limit = takeToken(`verify:${ip}`, envLimit('RATE_LIMIT_PER_MINUTE', 10), MINUTE);
+    if (!limit.ok) {
+      return NextResponse.json(
+        { error: 'Too many checks. Please wait a minute and try again.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } }
+      );
+    }
+
     // Check content length to prevent abuse
     const contentLength = request.headers.get('content-length');
     if (contentLength && parseInt(contentLength) > MAX_REQUEST_SIZE) {
@@ -47,7 +59,11 @@ export async function POST(request: NextRequest) {
     // Run verification engine, then the optional AI advisor on top of it.
     // The advisor can only add findings; the rule engine re-derives the verdict.
     let result = verifyMessage(validatedRequest);
-    const advice = await runAdvisor(validatedRequest.messageContent, result.findings);
+    // Past the AI budget, checks still run on rules only, which caps the AI bill.
+    const aiAllowed =
+      takeToken(`ai:${ip}`, envLimit('AI_LIMIT_PER_IP_PER_DAY', 20), DAY).ok &&
+      takeToken('ai:all', envLimit('AI_LIMIT_PER_DAY', 500), DAY).ok;
+    const advice = aiAllowed ? await runAdvisor(validatedRequest.messageContent, result.findings) : null;
     if (advice) {
       result = { ...verifyMessage(validatedRequest, advice.findings), aiAdvisor: advice.info };
     }

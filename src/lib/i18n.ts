@@ -64,6 +64,7 @@ export const translations = {
       errorRequired: 'Please enter a message to check.',
       errorTooLong: 'Message must be under 5,000 characters.',
       errorUrl: 'Please enter a valid URL or leave blank.',
+      errorTooMany: 'Too many checks in a short time. Please wait a minute and try again.',
       types: {
         text: 'Text message',
         email: 'Email',
@@ -269,6 +270,7 @@ export const translations = {
       errorRequired: 'Por favor ingrese un mensaje para verificar.',
       errorTooLong: 'El mensaje debe tener menos de 5,000 caracteres.',
       errorUrl: 'Por favor ingrese una URL válida o deje el campo vacío.',
+      errorTooMany: 'Demasiadas verificaciones en poco tiempo. Espere un minuto e intente de nuevo.',
       types: {
         text: 'Mensaje de texto',
         email: 'Correo electrónico',

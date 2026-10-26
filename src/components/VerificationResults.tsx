@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import type { VerificationResponse, EvidenceStatus } from '@/lib/types';
 import { useLanguage } from './LanguageProvider';
 
@@ -26,9 +27,15 @@ export default function VerificationResults({
   const { locale, strings } = useLanguage();
   const r = strings.results;
   const es = locale === 'es';
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  // Move focus to the result so screen reader users hear it and keyboard users start there.
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [result]);
 
   return (
-    <div className="space-y-8" aria-live="polite">
+    <div className="space-y-8">
       <button
         onClick={onReset}
         className="inline-flex min-h-11 items-center text-blue-600 hover:text-blue-700 font-medium underline"
@@ -37,9 +44,9 @@ export default function VerificationResults({
       </button>
 
       <section className={`rounded-xl p-6 status-${result.overallAssessment}`}>
-        <h2 className="text-2xl font-semibold text-navy-900">
+        <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold text-navy-900">
           {es ? result.summaryTitleEs : result.summaryTitle}
-        </h2>
+        </h1>
         <p className="mt-3 text-navy-700">
           {es ? result.summaryDescriptionEs : result.summaryDescription}
         </p>
@@ -84,7 +91,7 @@ export default function VerificationResults({
                           {f.officialSource.url}
                         </a>
                         <p className="mt-1">{f.officialSource.policyStatement}</p>
-                        <p className="mt-1 text-navy-500">
+                        <p className="mt-1 text-navy-600">
                           {r.lastVerifiedLabel} {f.officialSource.lastVerifiedDate}
                         </p>
                         {f.officialSource.verificationStatus !== 'verified' && (
@@ -167,11 +174,11 @@ export default function VerificationResults({
           <p className="mt-2 text-navy-700">
             {es ? result.aiAdvisor.explanationEs : result.aiAdvisor.explanation}
           </p>
-          <p className="mt-2 text-xs text-navy-500">{r.aiNote}</p>
+          <p className="mt-2 text-xs text-navy-600">{r.aiNote}</p>
         </section>
       )}
 
-      <p className="text-sm text-navy-500">{es ? result.disclaimerEs : result.disclaimer}</p>
+      <p className="text-sm text-navy-600">{es ? result.disclaimerEs : result.disclaimer}</p>
     </div>
   );
 }

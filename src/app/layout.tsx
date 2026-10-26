@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BenefitGuard",
+  title: { template: "%s | BenefitGuard", default: "BenefitGuard" },
   description:
     "Check a benefits message against verified official government information before you trust it.",
 };

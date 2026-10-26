@@ -131,7 +131,11 @@ export default function CheckPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.details?.[0]?.message ?? data.error ?? 'Something went wrong.');
+        setError(
+          res.status === 429
+            ? c.errorTooMany
+            : data.details?.[0]?.message ?? data.error ?? 'Something went wrong.'
+        );
         return;
       }
       setResult(data);
@@ -235,13 +239,15 @@ export default function CheckPage() {
                 }`}
               >
                 <p className="text-sm font-medium text-navy-700">{c.screenshotLabel}</p>
-                <p className="mt-1 text-xs text-navy-500">{c.screenshotHelp}</p>
+                <p className="mt-1 text-xs text-navy-600">{c.screenshotHelp}</p>
                 <input
                   ref={fileInput}
                   id="screenshot"
                   type="file"
                   accept="image/*"
                   className="sr-only"
+                  tabIndex={-1}
+                  aria-hidden="true"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) readImage(file);
@@ -276,7 +282,7 @@ export default function CheckPage() {
                   onChange={(e) => setMessageContent(e.target.value)}
                   aria-describedby={error ? 'form-error' : undefined}
                 />
-                <p className="mt-1 text-right text-xs text-navy-500">
+                <p className="mt-1 text-right text-xs text-navy-600">
                   {messageContent.length} / {MAX_LENGTH}
                 </p>
               </div>
