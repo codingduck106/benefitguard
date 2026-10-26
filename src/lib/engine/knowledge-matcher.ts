@@ -241,10 +241,12 @@ export function matchClaimsToSources(claims: ExtractedClaim[], program?: Program
     return {
       id: claim.id,
       claim: claim.text,
+      rule: claim.rule,
       reason: result.reason,
       evidenceStatus: result.evidenceStatus,
       officialSource: result.bestMatch
         ? {
+            id: result.bestMatch.id,
             agency: result.bestMatch.agency,
             url: result.bestMatch.sourceUrl,
             policyStatement: result.bestMatch.policyStatement,

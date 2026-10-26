@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import type { VerificationResponse, EvidenceStatus } from '@/lib/types';
+import type { VerificationResponse, EvidenceStatus, Finding } from '@/lib/types';
 import { useLanguage } from './LanguageProvider';
 
 const statusBadge: Record<EvidenceStatus, string> = {
@@ -11,11 +11,15 @@ const statusBadge: Record<EvidenceStatus, string> = {
   insufficient: 'bg-info-100 text-info-700',
 };
 
-const priorityBadge = {
-  high: 'bg-danger-100 text-danger-700',
-  medium: 'bg-warning-100 text-warning-700',
-  low: 'bg-info-100 text-info-700',
-};
+const sectionTitle = 'text-xl font-semibold text-navy-900';
+const card = 'rounded-xl border border-navy-100 bg-white p-4';
+
+/** The part of a finding worth showing under its label: the quoted words, or the detail after "Label: ". */
+function claimDetail(f: Finding): string {
+  if (f.origin === 'ai') return `“${f.claim}”`;
+  const i = f.claim.indexOf(': ');
+  return i === -1 ? `“${f.claim}”` : f.claim.slice(i + 2);
+}
 
 export default function VerificationResults({
   result,
@@ -34,6 +38,19 @@ export default function VerificationResults({
     headingRef.current?.focus();
   }, [result]);
 
+  const { findings } = result;
+  const sources = [
+    ...new Map(findings.flatMap((f) => (f.officialSource ? [[f.officialSource.id, f.officialSource] as const] : []))).values(),
+  ];
+  const reasons = [...new Map(findings.map((f) => [f.rule, f])).values()];
+  const uncertain = [
+    ...result.uncertainties.map((u) => (es ? u.es : u.en)),
+    ...(result.aiAdvisor ? [] : [r.uncertainNoAi]),
+    ...(findings.some((f) => f.origin === 'ai') ? [r.uncertainAiFindings] : []),
+  ];
+  const mainSteps = result.nextSteps.slice(0, 2);
+  const moreSteps = result.nextSteps.slice(2);
+
   return (
     <div className="space-y-8">
       <button
@@ -44,7 +61,8 @@ export default function VerificationResults({
       </button>
 
       <section className={`rounded-xl p-6 status-${result.overallAssessment}`}>
-        <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold text-navy-900">
+        <p className="text-sm font-semibold uppercase tracking-wide text-navy-700">{r.riskLabel}</p>
+        <h1 ref={headingRef} tabIndex={-1} className="mt-1 text-2xl font-semibold text-navy-900">
           {es ? result.summaryTitleEs : result.summaryTitle}
         </h1>
         <p className="mt-3 text-navy-700">
@@ -52,145 +70,180 @@ export default function VerificationResults({
         </p>
       </section>
 
-      {result.findings.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold text-navy-900">{r.findingsTitle}</h2>
-          <ul className="mt-4 space-y-4">
-            {result.findings.map((f) => (
-              <li key={f.id} className="rounded-xl border border-navy-100 bg-white p-5">
-                <span
-                  className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${statusBadge[f.evidenceStatus]}`}
-                >
-                  {r.evidenceStatus[f.evidenceStatus]}
-                </span>
-                {f.origin === 'ai' && (
-                  <span className="ml-2 inline-block rounded-full bg-navy-100 px-3 py-1 text-xs font-semibold text-navy-700">
-                    {r.aiBadge}
-                  </span>
-                )}
-                <dl className="mt-3 space-y-2 text-sm text-navy-700">
-                  <div>
-                    <dt className="font-semibold text-navy-900">{r.claimLabel}</dt>
-                    <dd>{f.claim}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-semibold text-navy-900">{r.reasonLabel}</dt>
-                    <dd>{f.reason}</dd>
-                  </div>
-                  {f.officialSource && (
-                    <div>
-                      <dt className="font-semibold text-navy-900">{r.sourceLabel}</dt>
-                      <dd>
-                        {f.officialSource.agency} —{' '}
-                        <a
-                          href={f.officialSource.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block py-2 text-blue-600 underline break-all"
-                        >
-                          {f.officialSource.url}
-                        </a>
-                        <p className="mt-1">{f.officialSource.policyStatement}</p>
-                        <p className="mt-1 text-navy-600">
-                          {r.lastVerifiedLabel} {f.officialSource.lastVerifiedDate}
-                        </p>
-                        {f.officialSource.verificationStatus !== 'verified' && (
-                          <p className="mt-1 text-warning-700">{r.unverifiedSourceNote}</p>
-                        )}
-                      </dd>
-                    </div>
-                  )}
-                  <div>
-                    <dt className="font-semibold text-navy-900">{r.strengthLabel}</dt>
-                    <dd>{r.evidenceStrength[f.evidenceStrength]}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-semibold text-navy-900">{r.actionLabel}</dt>
-                    <dd>{es ? f.recommendedActionEs : f.recommendedAction}</dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {result.pressure.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold text-navy-900">{r.pressureTitle}</h2>
-          <p className="mt-2 text-sm text-navy-700">{r.pressureNote}</p>
-          <ul className="mt-3 space-y-2">
-            {result.pressure.map((s) => (
-              <li key={s} className="rounded-lg border border-warning-100 bg-warning-50 p-3 text-sm text-navy-900">
-                “{s}”
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {result.urlAnalysis.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold text-navy-900">{r.urlTitle}</h2>
-          <ul className="mt-4 space-y-3">
-            {result.urlAnalysis.map((u) => (
-              <li key={u.url} className="rounded-xl border border-navy-100 bg-white p-5 text-sm">
-                {/* Shown as text, never a link: the URL is untrusted */}
-                <p className="font-mono break-all text-navy-900">{u.hostname}</p>
-                <p className="mt-2 text-navy-700">{u.notes}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {result.nextSteps.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold text-navy-900">{r.nextStepsTitle}</h2>
-          <ul className="mt-4 space-y-3">
-            {result.nextSteps.map((s) => (
-              <li key={s.action} className="rounded-xl border border-navy-100 bg-white p-5">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs font-semibold uppercase ${priorityBadge[s.priority]}`}
-                  >
-                    {s.priority}
-                  </span>
-                  <h3 className="font-semibold text-navy-900">{es ? s.actionEs : s.action}</h3>
-                </div>
-                <p className="mt-2 text-sm text-navy-700">{es ? s.descriptionEs : s.description}</p>
-                {s.url && (
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 inline-block py-2 text-sm text-blue-600 underline break-all"
-                  >
-                    {s.url}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
+      {/* 1. What was detected */}
       <section>
-        <h2 className="text-xl font-semibold text-navy-900">{r.whyTitle}</h2>
-        <p className="mt-3 text-navy-700">
-          {es ? result.explanationOfResultEs : result.explanationOfResult}
-        </p>
+        <h2 className={sectionTitle}>{r.findingsTitle}</h2>
+        {findings.length === 0 ? (
+          <p className="mt-3 text-navy-700">{r.nothingDetected}</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {findings.map((f) => (
+              <li key={f.id} className={card}>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusBadge[f.evidenceStatus]}`}>
+                    {r.evidenceStatus[f.evidenceStatus]}
+                  </span>
+                  {f.origin === 'ai' && (
+                    <span className="rounded-full bg-navy-100 px-3 py-1 text-xs font-semibold text-navy-700">
+                      {r.aiBadge}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-2 font-semibold text-navy-900">{r.rules[f.rule].label}</p>
+                {/* Shown as text, never a link: it comes from the untrusted message */}
+                <p className="mt-1 break-words text-sm text-navy-700">{claimDetail(f)}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {result.pressure.length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold text-navy-900">{r.pressureTitle}</h3>
+            <p className="mt-1 text-sm text-navy-700">{r.pressureNote}</p>
+            <ul className="mt-3 space-y-2">
+              {result.pressure.map((s) => (
+                <li key={s} className="rounded-lg border border-warning-100 bg-warning-50 p-3 text-sm text-navy-900">
+                  “{s}”
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {result.aiAdvisor && (
+          <div className={`mt-6 ${card}`}>
+            <h3 className="font-semibold text-navy-900">{r.aiTitle}</h3>
+            <p className="mt-2 text-navy-700">
+              {es ? result.aiAdvisor.explanationEs : result.aiAdvisor.explanation}
+            </p>
+            <p className="mt-2 text-xs text-navy-600">{r.aiNote}</p>
+          </div>
+        )}
       </section>
 
-      {result.aiAdvisor && (
-        <section className="rounded-xl border border-navy-100 bg-white p-5">
-          <h2 className="text-lg font-semibold text-navy-900">{r.aiTitle}</h2>
-          <p className="mt-2 text-navy-700">
-            {es ? result.aiAdvisor.explanationEs : result.aiAdvisor.explanation}
-          </p>
-          <p className="mt-2 text-xs text-navy-600">{r.aiNote}</p>
-        </section>
-      )}
+      {/* 2. Why it matters */}
+      <section>
+        <h2 className={sectionTitle}>{r.whyTitle}</h2>
+        {reasons.length === 0 ? (
+          <p className="mt-3 text-navy-700">{r.nothingToExplain}</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {reasons.map((f) => (
+              <li key={f.rule} className="text-navy-700">
+                <span className="font-semibold text-navy-900">{r.rules[f.rule].label}.</span>{' '}
+                {f.origin === 'ai' && !es ? f.reason : r.rules[f.rule].why}
+                {findings.some((x) => x.rule === f.rule && x.evidenceStatus === 'contradicted') &&
+                  ` ${r.conflictsWithSource}`}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {/* 3. Evidence */}
+      <section>
+        <h2 className={sectionTitle}>{r.evidenceTitle}</h2>
+        {sources.length === 0 ? (
+          <p className="mt-3 text-navy-700">{r.noSources}</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {sources.map((s) => (
+              <li key={s.id} className={`${card} text-sm text-navy-700`}>
+                <p className="font-semibold text-navy-900">{s.agency}</p>
+                <p className="mt-2">{s.policyStatement}</p>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block py-2 text-blue-600 underline break-all"
+                >
+                  {s.url}
+                </a>
+                <p className="text-navy-600">
+                  {r.lastVerifiedLabel} {s.lastVerifiedDate}
+                </p>
+                {s.verificationStatus !== 'verified' && (
+                  <p className="mt-1 text-warning-700">{r.unverifiedSourceNote}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {findings.length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold text-navy-900">{r.howDetected}</h3>
+            <ul className="mt-2 space-y-1 text-sm text-navy-700">
+              {findings.map((f) => (
+                <li key={f.id}>
+                  {r.rules[f.rule].label}: {r.ruleLabel} <code className="text-navy-900">{f.rule}</code>
+                  {f.officialSource && <> · {f.officialSource.agency}</>} · {r.strengthLabel}{' '}
+                  {r.evidenceStrength[f.evidenceStrength]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+
+      {/* 4. What remains uncertain */}
+      <section>
+        <h2 className={sectionTitle}>{r.uncertainTitle}</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-navy-700">
+          {uncertain.map((u) => (
+            <li key={u}>{u}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 5. Recommended next steps */}
+      <section>
+        <h2 className={sectionTitle}>{r.nextStepsTitle}</h2>
+        <ul className="mt-4 space-y-3">
+          {mainSteps.map((s) => (
+            <li key={s.action} className="rounded-xl border-2 border-blue-200 bg-white p-5">
+              <h3 className="font-semibold text-navy-900">{es ? s.actionEs : s.action}</h3>
+              <p className="mt-2 text-sm text-navy-700">{es ? s.descriptionEs : s.description}</p>
+              {s.url && (
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block py-2 text-sm text-blue-600 underline break-all"
+                >
+                  {s.url}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+        {moreSteps.length > 0 && (
+          <details className="mt-4 rounded-xl border border-navy-100 bg-white px-5 py-2">
+            <summary className="cursor-pointer py-2 font-medium text-navy-900">
+              {r.moreSteps} ({moreSteps.length})
+            </summary>
+            <ul className="mb-2 mt-2 space-y-4">
+              {moreSteps.map((s) => (
+                <li key={s.action}>
+                  <h3 className="font-semibold text-navy-900">{es ? s.actionEs : s.action}</h3>
+                  <p className="mt-1 text-sm text-navy-700">{es ? s.descriptionEs : s.description}</p>
+                  {s.url && (
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block py-2 text-sm text-blue-600 underline break-all"
+                    >
+                      {s.url}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </section>
 
       <p className="text-sm text-navy-600">{es ? result.disclaimerEs : result.disclaimer}</p>
     </div>

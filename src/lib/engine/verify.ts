@@ -21,6 +21,7 @@ import type {
   NextStep,
   MessageContext,
   AlreadyResponded,
+  Localized,
 } from '../types';
 import { normalizeInput, type NormalizedInput } from './normalizer';
 import { extractClaims } from './claim-extractor';
@@ -136,59 +137,88 @@ function generateAssessment(
 
 // ─── Summary Text Generation ─────────────────────────────────────────────────
 
-function generateSummaryTitle(assessment: OverallAssessment): { en: string; es: string } {
-  const titles = {
-    'scam-indicators': {
-      en: 'Potential scam indicators found',
-      es: 'Se encontraron indicadores potenciales de estafa',
+// The four outcomes. None of them says a message is safe.
+const OUTCOMES: Record<OverallAssessment, { title: Localized; description: Localized }> = {
+  'scam-indicators': {
+    title: { en: 'High risk', es: 'Riesgo alto' },
+    description: {
+      en: 'This message has strong signs of a scam or clearly conflicts with official guidance. Do not respond to it or follow its instructions.',
+      es: 'Este mensaje tiene señales fuertes de estafa o contradice claramente la guía oficial. No responda ni siga sus instrucciones.',
     },
-    'conflicts-found': {
-      en: 'Conflicts with official guidance',
-      es: 'Conflictos con la guía oficial',
+  },
+  'conflicts-found': {
+    title: { en: 'Suspicious', es: 'Sospechoso' },
+    description: {
+      en: 'This message has one or more warning signs, but they are not conclusive. Check it with an official contact you find yourself before you act.',
+      es: 'Este mensaje tiene una o más señales de alerta, pero no son concluyentes. Verifíquelo con un contacto oficial que usted mismo busque antes de actuar.',
     },
-    'no-issues': {
-      en: 'No issues identified in the available evidence',
-      es: 'No se identificaron problemas en la evidencia disponible',
+  },
+  'insufficient-info': {
+    title: { en: 'Unable to verify', es: 'No se puede verificar' },
+    description: {
+      en: 'We could not find enough evidence either way. This does not mean the message is safe. Check it with an official contact you find yourself.',
+      es: 'No encontramos suficiente evidencia en ningún sentido. Esto no significa que el mensaje sea seguro. Verifíquelo con un contacto oficial que usted mismo busque.',
     },
-    'insufficient-info': {
-      en: 'Unable to verify — more information needed',
-      es: 'No se puede verificar — se necesita más información',
+  },
+  'no-issues': {
+    title: { en: 'No significant red flags detected', es: 'No se detectaron señales de alerta importantes' },
+    description: {
+      en: 'We found no strong warning signs. This is not a guarantee that the message is real, because we cannot confirm who sent it.',
+      es: 'No encontramos señales de alerta fuertes. Esto no garantiza que el mensaje sea real, porque no podemos confirmar quién lo envió.',
     },
-  };
-  return titles[assessment];
-}
+  },
+};
 
-function generateSummaryDescription(
-  assessment: OverallAssessment,
+/** What this check could not establish, so the user knows its limits. */
+function generateUncertainties(
   findings: Finding[],
-  urlResults: UrlAnalysisResult[]
-): { en: string; es: string } {
-  const contradictions = findings.filter((f) => f.evidenceStatus === 'contradicted');
-  const suspicious = findings.filter((f) => f.evidenceStatus === 'suspicious');
-  const unapprovedUrls = urlResults.filter((u) => !u.isApproved);
-
-  switch (assessment) {
-    case 'scam-indicators':
-      return {
-        en: `This message contains ${contradictions.length} claim(s) that contradict official government policy and ${suspicious.length} suspicious indicator(s). ${unapprovedUrls.length > 0 ? `It also contains ${unapprovedUrls.length} URL(s) not from verified official domains.` : ''} Do not respond to this message or follow its instructions.`,
-        es: `Este mensaje contiene ${contradictions.length} afirmación(es) que contradicen la política oficial del gobierno y ${suspicious.length} indicador(es) sospechoso(s). ${unapprovedUrls.length > 0 ? `También contiene ${unapprovedUrls.length} URL(s) que no pertenecen a dominios oficiales verificados.` : ''} No responda a este mensaje ni siga sus instrucciones.`,
-      };
-    case 'conflicts-found':
-      return {
-        en: `This message contains claims or elements that do not align with verified official government information. Review the detailed findings below before taking any action.`,
-        es: `Este mensaje contiene afirmaciones o elementos que no se alinean con la información oficial verificada del gobierno. Revise los hallazgos detallados a continuación antes de tomar cualquier acción.`,
-      };
-    case 'no-issues':
-      return {
-        en: `No obvious scam indicators or policy contradictions were found in this message. However, this does not confirm the message is genuine — the sender's identity and the message's authenticity remain unverified through this analysis.`,
-        es: `No se encontraron indicadores obvios de estafa ni contradicciones de políticas en este mensaje. Sin embargo, esto no confirma que el mensaje sea genuino — la identidad del remitente y la autenticidad del mensaje siguen sin verificar a través de este análisis.`,
-      };
-    case 'insufficient-info':
-      return {
-        en: `This message does not contain enough specific claims or details to verify against official sources. Contact the agency directly through independently obtained contact information to determine its authenticity.`,
-        es: `Este mensaje no contiene suficientes afirmaciones o detalles específicos para verificar contra fuentes oficiales. Comuníquese directamente con la agencia a través de información de contacto obtenida independientemente para determinar su autenticidad.`,
-      };
+  urlResults: UrlAnalysisResult[],
+  normalized: NormalizedInput,
+  context: MessageContext
+): Localized[] {
+  const items: Localized[] = [
+    {
+      en: 'Who sent this message. We cannot confirm the sender from the text alone.',
+      es: 'Quién envió este mensaje. No podemos confirmar el remitente solo con el texto.',
+    },
+  ];
+  if (findings.some((f) => f.officialSource && f.officialSource.verificationStatus !== 'verified')) {
+    items.push({
+      en: 'One official statement we cite could not be confirmed on the official website recently.',
+      es: 'Una declaración oficial que citamos no se pudo confirmar recientemente en el sitio web oficial.',
+    });
   }
+  for (const u of urlResults.filter((u) => !u.isApproved && !u.isLookalike).slice(0, 2)) {
+    items.push({
+      en: `Whether ${u.hostname} is safe. It is not on our list of official websites, which alone does not make it a scam.`,
+      es: `Si ${u.hostname} es seguro. No está en nuestra lista de sitios web oficiales, lo cual por sí solo no lo convierte en una estafa.`,
+    });
+  }
+  if (normalized.extractedPhoneNumbers.length > 0) {
+    items.push({
+      en: 'Whether the phone number in this message is official. Compare it with the number on your card or an official website.',
+      es: 'Si el número de teléfono de este mensaje es oficial. Compárelo con el número de su tarjeta o de un sitio web oficial.',
+    });
+  }
+  if (normalized.extractedDates.length > 0) {
+    items.push({
+      en: 'Whether the date or deadline in this message is real. Check it with the agency using a contact you find yourself.',
+      es: 'Si la fecha o el plazo de este mensaje es real. Verifíquelo con la agencia usando un contacto que usted mismo busque.',
+    });
+  }
+  if (findings.length === 0) {
+    items.push({
+      en: 'Most of this message. It has few specific claims or requests we can check against official sources.',
+      es: 'La mayor parte de este mensaje. Tiene pocas afirmaciones o solicitudes específicas que podamos comparar con fuentes oficiales.',
+    });
+  }
+  if (context.program) {
+    items.push({
+      en: 'The program you selected. We used it as you gave it.',
+      es: 'El programa que usted seleccionó. Lo usamos tal como lo indicó.',
+    });
+  }
+  return items;
 }
 
 // ─── Next Steps ──────────────────────────────────────────────────────────────
@@ -455,6 +485,7 @@ export function verifyMessage(
         recommendedAction: 'Do not click this link. Navigate directly to the official website by typing the address yourself.',
         recommendedActionEs: 'No haga clic en este enlace. Navegue directamente al sitio web oficial escribiendo la dirección usted mismo.',
         category: 'url-analysis',
+        rule: urlResult.isLookalike ? 'lookalike-link' : urlResult.isShortener ? 'shortened-link' : 'unapproved-link',
       });
     }
   }
@@ -471,6 +502,7 @@ export function verifyMessage(
       recommendedAction: 'Only share it on a call you made yourself to the number on the back of your Benefits Identification Card (BIC) or to your county office. If someone calls you, hang up and call that official number.',
       recommendedActionEs: 'Compártala solo en una llamada que usted haya hecho al número en la parte de atrás de su Tarjeta de Identificación de Beneficios (BIC) o a su oficina del condado. Si alguien le llama, cuelgue y llame a ese número oficial.',
       category: 'informational',
+      rule: 'have-ready',
     });
   }
 
@@ -481,23 +513,23 @@ export function verifyMessage(
   const assessment = generateAssessment(findings, urlResults, normalized);
 
   // Step 7: Generate response
-  const summaryTitle = generateSummaryTitle(assessment);
-  const summaryDescription = generateSummaryDescription(assessment, findings, urlResults);
+  const outcome = OUTCOMES[assessment];
   const nextSteps = generateNextSteps(assessment, findings, context);
   const explanation = generateExplanation(assessment, findings, urlResults, normalized);
 
   return {
     overallAssessment: assessment,
-    summaryTitle: summaryTitle.en,
-    summaryTitleEs: summaryTitle.es,
-    summaryDescription: summaryDescription.en,
-    summaryDescriptionEs: summaryDescription.es,
+    summaryTitle: outcome.title.en,
+    summaryTitleEs: outcome.title.es,
+    summaryDescription: outcome.description.en,
+    summaryDescriptionEs: outcome.description.es,
     findings,
     urlAnalysis: urlResults,
     nextSteps,
     explanationOfResult: explanation.en,
     explanationOfResultEs: explanation.es,
     pressure: findPressure(normalized),
+    uncertainties: generateUncertainties(findings, urlResults, normalized, context),
     analyzedAt: new Date().toISOString(),
     disclaimer:
       'This analysis is informational only. It does not constitute an official fraud determination. BenefitGuard is not affiliated with any government agency. When in doubt, contact the relevant agency directly through independently obtained official contact information.',

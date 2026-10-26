@@ -93,7 +93,8 @@ export function toFindings(
 
     const source = f.sourceId ? sources.find((s) => s.id === f.sourceId) : undefined;
     const status = f.evidenceStatus === 'contradicted' && source ? 'contradicted' : 'suspicious';
-    const action = ACTIONS[inferCategory(f.quote, f.category)];
+    const category = inferCategory(f.quote, f.category);
+    const action = ACTIONS[category];
 
     accepted.push({
       id: `ai-${accepted.length + 1}`,
@@ -101,6 +102,7 @@ export function toFindings(
       reason: f.reason,
       evidenceStatus: status,
       officialSource: source && {
+        id: source.id,
         agency: source.agency,
         url: source.sourceUrl,
         policyStatement: source.policyStatement,
@@ -115,6 +117,7 @@ export function toFindings(
       recommendedActionEs: action.es,
       category: status === 'contradicted' ? 'policy-contradiction' : 'suspicious-indicator',
       origin: 'ai',
+      rule: `ai-${category}` as const,
     });
   }
   return accepted;

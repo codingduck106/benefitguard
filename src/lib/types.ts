@@ -42,6 +42,39 @@ export const VerifyRequestSchema = z.object({
 
 export type VerifyRequest = z.infer<typeof VerifyRequestSchema>;
 
+/** Text in both supported languages. */
+export interface Localized {
+  en: string;
+  es: string;
+}
+
+/**
+ * The rule behind each finding. Every finding names one, and cites an official source when one
+ * applies, so each result can be traced. AI findings use the category derived from their quote.
+ */
+export type RuleId =
+  | 'payment-request'
+  | 'fee-claim'
+  | 'payment-method'
+  | 'fee-policy-claim'
+  | 'sensitive-request'
+  | 'sensitive-info'
+  | 'money-amount'
+  | 'coverage-threat'
+  | 'agency-claim'
+  | 'security-check'
+  | 'link-in-message'
+  | 'unapproved-link'
+  | 'lookalike-link'
+  | 'shortened-link'
+  | 'have-ready'
+  | 'ai-payment-request'
+  | 'ai-sensitive-info-request'
+  | 'ai-urgency-threat'
+  | 'ai-impersonation'
+  | 'ai-suspicious-link'
+  | 'ai-other';
+
 /**
  * What the user told us about the message. The rules and the AI advisor get the same object.
  * It helps interpret the message and pick next steps; it never overrides what the message says.
@@ -76,6 +109,7 @@ export interface Finding {
   reason: string;
   evidenceStatus: EvidenceStatus;
   officialSource?: {
+    id: string;
     agency: string;
     url: string;
     policyStatement: string;
@@ -87,6 +121,7 @@ export interface Finding {
   recommendedAction: string;
   recommendedActionEs: string;
   category: 'policy-contradiction' | 'suspicious-indicator' | 'url-analysis' | 'informational';
+  rule: RuleId;
   /** 'ai' when added by the AI advisor; absent for rule-engine findings. */
   origin?: 'rules' | 'ai';
 }
@@ -122,6 +157,8 @@ export interface VerificationResponse {
   disclaimerEs: string;
   /** Sentences from the message with deadlines or pressure tactics, quoted for the user. */
   pressure: string[];
+  /** What the check could not establish, e.g. the sender's identity. */
+  uncertainties: Localized[];
   /** Present only when the AI advisor ran successfully. */
   aiAdvisor?: {
     provider: 'ollama' | 'claude';
