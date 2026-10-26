@@ -134,6 +134,8 @@ export interface UrlAnalysisResult {
   isApproved: boolean;
   isShortener: boolean;
   isLookalike: boolean;
+  /** For a lookalike: the official address it imitates, when there is one. */
+  imitates?: string;
   matchedDomain?: string;
   agency?: string;
   notes: string;

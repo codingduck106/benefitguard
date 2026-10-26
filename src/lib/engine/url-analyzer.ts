@@ -64,52 +64,66 @@ function matchApprovedDomain(
   return { matched: false };
 }
 
+// Benefit program and agency words. In an address that is not on the official list, they suggest
+// it is posing as one. "ebt" has to start a word, so "debt" doesn't count.
+const BENEFIT_TERMS = /medi-?cal|medicaid|calfresh|calworks|benefits?|dhcs|coveredca|healthcare|enrollment|renewal|(?:^|[.-])ebt/;
+
+/** Undo letter swaps used to fake an address: "rn" for "m", digits for letters. */
+function unswap(host: string): string {
+  return host.replace(/rn/g, 'm').replace(/vv/g, 'w').replace(/0/g, 'o').replace(/1/g, 'l').replace(/3/g, 'e').replace(/5/g, 's');
+}
+
+/** Edits (insert, delete, replace, or swap two neighbors) needed to turn one string into the other. */
+function editDistance(a: string, b: string): number {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+      }
+    }
+  }
+  return d[a.length][b.length];
+}
+
+interface Lookalike {
+  reason: string;
+  /** The official address it imitates, when there is one. */
+  imitates?: string;
+}
+
 /**
- * Check for common lookalike domain patterns.
+ * Check whether an unofficial address imitates an official one.
+ * Short official names (ca.gov, ssa.gov) are skipped for spelling checks: real sites such as
+ * va.gov differ from them by a single letter.
  */
-function detectLookalike(hostname: string): boolean {
-  const lowerHostname = hostname.toLowerCase();
+function detectLookalike(hostname: string): Lookalike | null {
+  const host = hostname.toLowerCase().replace(/^www\./, '');
 
-  const lookalikeParts = [
-    'medi-cal',
-    'medical',
-    'medic',
-    'medicaid',
-    'calfresh',
-    'ebt',
-    'benefits',
-    'dhcs',
-    'coveredca',
-    'benefitscal',
-    'healthcare',
-    'enrollment',
-    'renewal',
-  ];
+  if (host.split('.').some((label) => label.startsWith('xn--'))) {
+    return { reason: 'This address uses letters from other alphabets that can look like ordinary letters.' };
+  }
 
-  const suspiciousTlds = ['.xyz', '.top', '.click', '.info', '.online', '.site', '.club'];
+  for (const domain of getApprovedDomains()) {
+    const official = domain.hostname.toLowerCase();
+    if (official.length < 8) continue;
+    const name = official.split('.')[0];
+    if (host.includes(official) || (name.length >= 4 && host.includes(name))) {
+      return { reason: `This address contains "${name}" but is not ${official}.`, imitates: official };
+    }
+    const maxEdits = official.length >= 14 ? 2 : 1;
+    if (unswap(host) === official || editDistance(host, official) <= maxEdits) {
+      return { reason: `This address is spelled almost like ${official}, but it is a different website.`, imitates: official };
+    }
+  }
 
-  // Check if it contains benefit-related terms but isn't an approved domain
-  const containsBenefitTerms = lookalikeParts.some((part) =>
-    lowerHostname.includes(part)
-  );
-
-  // Check for suspicious TLD
-  const hasSuspiciousTld = suspiciousTlds.some((tld) =>
-    lowerHostname.endsWith(tld)
-  );
-
-  // Check for common lookalike techniques
-  const hasNumberSubstitution = /[0-9]/.test(lowerHostname) && containsBenefitTerms;
-  const hasExcessiveHyphens = (lowerHostname.match(/-/g) || []).length > 2;
-  const hasExampleDomain = lowerHostname.includes('example.');
-
-  return (
-    (containsBenefitTerms && !matchApprovedDomain(lowerHostname).matched) ||
-    hasSuspiciousTld ||
-    (hasNumberSubstitution && !matchApprovedDomain(lowerHostname).matched) ||
-    hasExcessiveHyphens ||
-    hasExampleDomain
-  );
+  if (BENEFIT_TERMS.test(host)) {
+    return { reason: 'This address uses benefit program words but is not an official government website.' };
+  }
+  return null;
 }
 
 /**
@@ -174,15 +188,28 @@ export function analyzeUrl(urlString: string): UrlAnalysisResult {
   // Check for lookalikes
   const lookalike = detectLookalike(hostname);
 
+  if (lookalike) {
+    return {
+      url: urlString,
+      hostname,
+      isApproved: false,
+      isShortener: false,
+      isLookalike: true,
+      imitates: lookalike.imitates,
+      notes: `${lookalike.reason} Do not enter personal information on this site.${
+        lookalike.imitates ? ` To reach the real site, type ${lookalike.imitates} yourself.` : ''
+      }`,
+    };
+  }
+
   return {
     url: urlString,
     hostname,
     isApproved: false,
     isShortener: false,
-    isLookalike: lookalike,
-    notes: lookalike
-      ? 'This domain is not a verified official government domain and may be designed to look like one. Do not enter personal information on this site.'
-      : 'This domain is not on the list of verified official government domains. This does not necessarily mean it is malicious, but its authenticity has not been confirmed.',
+    isLookalike: false,
+    notes:
+      'This domain is not on the list of verified official government domains. This does not necessarily mean it is malicious, but its authenticity has not been confirmed.',
   };
 }
 
