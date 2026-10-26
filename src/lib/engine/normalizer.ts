@@ -14,6 +14,8 @@ export interface NormalizedInput {
   extractedMoneyAmounts: string[];
   hasSensitiveInfoRequest: boolean;
   sensitiveInfoTypes: string[];
+  /** Sensitive data the message tells the user to have ready (e.g. for a call), without asking for it. */
+  sensitiveInfoReadyTypes: string[];
   hasUrgencyIndicators: boolean;
   urgencyPhrases: string[];
   wordCount: number;
@@ -31,6 +33,12 @@ const MONEY_REGEX = /\$\s?\d+(?:\.\d{2})?|\d+\s*(?:dollars?|d[oó]lares|USD)/gi;
 const WARNING_REGEX = /\b(?:never|nunca|do\s+not|don'?t)\s+(?:\w+\s+){0,2}(?:share|give|send|tell|ask|request|comparta|d[eé]|env[ií]e|diga|pedi\w*|pide|solicit\w*)|\bno\s+(?:comparta|d[eé]|env[ií]e|diga|le\s+pedi\w*|le\s+solicit\w*)\b/i;
 
 // Setting up your own PIN ("call to set your PIN", "crear su PIN") is not a request to disclose it.
+// "Have your Social Security number ready" prepares the user for a call; it is not a request to send it.
+const HAVE_READY_REGEX = /\b(?:have|keep)\s+(?:your\s+)?(?:[\w'-]+\s+){0,5}(?:ready|handy|nearby|on\s+hand|available)\b|\btenga\s+(?:a\s+la\s+mano|list[oa]s?|preparad[oa]s?)\s+(?:\S+\s+){0,5}\S+|\btenga\s+(?:\S+\s+){0,6}(?:a\s+la\s+mano|list[oa]s?|preparad[oa]s?)\b/gi;
+
+// The message promises a call to the user, so the caller's number can't be checked against the card.
+const CALLS_YOU_REGEX = /\b(?:will|we'll|going\s+to)\s+(?:\w+\s+)?call\s+you\b|\b(?:le|te)\s+llamar(?:[aá]|emos)\b/i;
+
 const SET_OWN_PIN_REGEX = /\b(?:set|create|choose|select|change|reset)\s+(?:up\s+)?(?:a\s+|your\s+)?(?:new\s+)?(?:EBT\s+)?PIN\b|\b(?:crear|cree|elegir|elija|cambiar|cambie|establecer|establezca)\s+(?:un\s+|su\s+)?(?:nuevo\s+)?PIN\b/gi;
 
 /** Undo common OCR or obfuscation noise so patterns still match ("y0ur", "r e n e w a l", "$ 35"). */
@@ -76,6 +84,14 @@ const URGENCY_PATTERNS: RegExp[] = [
   /\b(?:or\s*(?:your|you\s*will)\s*(?:lose|forfeit))\b/i,
 ];
 
+function sensitiveTypesIn(text: string): string[] {
+  const types: string[] = [];
+  for (const { pattern, type } of SENSITIVE_INFO_PATTERNS) {
+    if (pattern.test(text) && !types.includes(type)) types.push(type);
+  }
+  return types;
+}
+
 export function normalizeInput(rawText: string): NormalizedInput {
   // Step 1: Normalize whitespace (preserve line breaks for readability)
   const cleanText = rawText
@@ -104,17 +120,18 @@ export function normalizeInput(rawText: string): NormalizedInput {
   const extractedMoneyAmounts = [...new Set(normalizedText.match(MONEY_REGEX) || [])];
 
   // Step 6: Check for sensitive information requests
-  const requestText = normalizedText
+  const checkedText = normalizedText
     .split(/(?<=[.!?\n])\s+/)
     .filter((sentence) => !WARNING_REGEX.test(sentence))
-    .join(' ')
-    .replace(SET_OWN_PIN_REGEX, ' ');
-  const sensitiveInfoTypes: string[] = [];
-  for (const { pattern, type } of SENSITIVE_INFO_PATTERNS) {
-    if (pattern.test(requestText) && !sensitiveInfoTypes.includes(type)) {
-      sensitiveInfoTypes.push(type);
-    }
-  }
+    .join(' ');
+  const requestText = checkedText.replace(HAVE_READY_REGEX, ' ').replace(SET_OWN_PIN_REGEX, ' ');
+  const requestedTypes = sensitiveTypesIn(requestText);
+  const readyTypes = sensitiveTypesIn((checkedText.match(HAVE_READY_REGEX) ?? []).join(' '))
+    .filter((type) => !requestedTypes.includes(type));
+  // "Have it ready" for a number the message supplies, or for a promised call, is how phone scams collect it.
+  const unverifiedCall = extractedPhoneNumbers.length > 0 || CALLS_YOU_REGEX.test(normalizedText);
+  const sensitiveInfoTypes = unverifiedCall ? [...requestedTypes, ...readyTypes] : requestedTypes;
+  const sensitiveInfoReadyTypes = unverifiedCall ? [] : readyTypes;
 
   // Step 7: Check for urgency indicators
   const urgencyPhrases: string[] = [];
@@ -133,6 +150,7 @@ export function normalizeInput(rawText: string): NormalizedInput {
     extractedMoneyAmounts,
     hasSensitiveInfoRequest: sensitiveInfoTypes.length > 0,
     sensitiveInfoTypes,
+    sensitiveInfoReadyTypes,
     hasUrgencyIndicators: urgencyPhrases.length > 0,
     urgencyPhrases,
     wordCount: normalizedText.split(/\s+/).filter(Boolean).length,

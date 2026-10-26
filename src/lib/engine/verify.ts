@@ -25,6 +25,9 @@ import { extractClaims } from './claim-extractor';
 import { analyzeUrls } from './url-analyzer';
 import { matchClaimsToSources } from './knowledge-matcher';
 
+/** Finding id for "have your SSN ready" style messages. */
+const HAVE_READY_ID = 'have-ready';
+
 // ─── Assessment Generator ────────────────────────────────────────────────────
 
 function generateAssessment(
@@ -142,11 +145,22 @@ function generateNextSteps(
   urlResults: UrlAnalysisResult[]
 ): NextStep[] {
   const steps: NextStep[] = [];
+
+  // Shown first: the message prepares the user to give sensitive data on a call.
+  if (findings.some((f) => f.id === HAVE_READY_ID)) {
+    steps.push({
+      action: 'Only share personal information on a call you made',
+      actionEs: 'Solo comparta información personal en una llamada que usted hizo',
+      description: 'Never give your Social Security number or other personal information to someone who calls you, even if they say they are from Medi-Cal or your county. Hang up and call the number on the back of your Benefits Identification Card (BIC) or your county office yourself.',
+      descriptionEs: 'Nunca dé su número de Seguro Social ni otra información personal a alguien que le llame, aunque diga que es de Medi-Cal o de su condado. Cuelgue y llame usted mismo al número en la parte de atrás de su Tarjeta de Identificación de Beneficios (BIC) o a su oficina del condado.',
+      priority: 'high',
+    });
+  }
   const hasPaymentIssue = findings.some(
     (f) => f.claim.toLowerCase().includes('pay') || f.claim.toLowerCase().includes('fee') || f.claim.toLowerCase().includes('$')
   );
   const hasSensitiveInfoIssue = findings.some(
-    (f) => f.claim.toLowerCase().includes('pin') || f.claim.toLowerCase().includes('password') || f.claim.toLowerCase().includes('social security')
+    (f) => f.id !== HAVE_READY_ID && (f.claim.toLowerCase().includes('pin') || f.claim.toLowerCase().includes('password') || f.claim.toLowerCase().includes('social security'))
   );
 
   if (assessment === 'scam-indicators' || assessment === 'conflicts-found') {
@@ -332,6 +346,21 @@ export function verifyMessage(
         category: 'url-analysis',
       });
     }
+  }
+
+  // A caution, not a red flag: it never changes the verdict on its own.
+  if (normalized.sensitiveInfoReadyTypes.length > 0) {
+    findings.push({
+      id: HAVE_READY_ID,
+      claim: `Asks you to have this ready: ${normalized.sensitiveInfoReadyTypes.join(', ')}`,
+      reason: 'The message does not ask you to send this information, but it prepares you to give it on a call. Scammers use this too.',
+      evidenceStatus: 'insufficient',
+      evidenceStrength: 'none',
+      evidenceExplanation: 'Legitimate offices sometimes ask you to have documents ready. Who you share them with is what matters.',
+      recommendedAction: 'Only share it on a call you made yourself to the number on the back of your Benefits Identification Card (BIC) or to your county office. If someone calls you, hang up and call that official number.',
+      recommendedActionEs: 'Compártala solo en una llamada que usted haya hecho al número en la parte de atrás de su Tarjeta de Identificación de Beneficios (BIC) o a su oficina del condado. Si alguien le llama, cuelgue y llame a ese número oficial.',
+      category: 'informational',
+    });
   }
 
   // Findings from the AI advisor are added here, so the same rules derive the verdict.
